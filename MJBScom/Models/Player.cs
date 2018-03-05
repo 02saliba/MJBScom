@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using MySql.Data.MySqlClient;
 
 namespace MJBScom.Models
@@ -49,7 +50,79 @@ namespace MJBScom.Models
 
     public void Save()
     {
+        // MySqlConnection conn = DB.Connection();
+        // conn.Open();
+        // var cmd = conn.CreateCommand() as MySqlCommand;
+        // cmd.CommandText = @"INSERT INTO `players` (`id`, `name`, `agility`, `intelligence`, `strength`, `luck`) VALUES (@ThisId, @Name, @Agility, @Intelligence, @Strength, @Luck);";
+        //
+        // cmd.Parameters.AddWithValue("@ThisId", this._id);
+        // cmd.Parameters.AddWithValue("@Name", this._name);
+        // cmd.Parameters.AddWithValue("@Agility", this._agility);
+        // cmd.Parameters.AddWithValue("@Intelligence", this._intelligence);
+        // cmd.Parameters.AddWithValue("@Strength", this._strength);
+        // cmd.Parameters.AddWithValue("@Luck", this._luck);
+        //
+        // cmd.ExecuteNonQuery();
+        // _id = (int) cmd.LastInsertedId;
+        //
+        // conn.Close();
+        // if (conn != null)
+        // {
+        //     conn.Dispose();
+        // }
+    }
 
+    public static List<Player> GetAll()
+    {
+        List<Player> allPlayers = new List<Player>{};
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"SELECT * FROM players;";
+        MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+        while(rdr.Read())
+        {
+            int playerId = rdr.GetInt32(0);
+            string playerName = rdr.GetString(1);
+            int playerAgility = rdr.GetInt32(6);
+            int playerIntelligence = rdr.GetInt32(7);
+            int playerStrength = rdr.GetInt32(8);
+            int playerLuck = rdr.GetInt32(9);
+            Player newPlayer = new Player(playerName, playerAgility, playerIntelligence, playerStrength, playerLuck, playerId);
+
+            allPlayers.Add(newPlayer);
+        }
+        conn.Close();
+        if (conn != null)
+        {
+          conn.Dispose();
+        }
+        return allPlayers;
+    }
+
+    public override bool Equals(System.Object otherPlayer)
+    {
+        if (!(otherPlayer is Player))
+        {
+            return false;
+        }
+        else
+        {
+            Player newPlayer = (Player) otherPlayer;
+            bool idEquality = (this.GetId() == newPlayer.GetId());
+            bool nameEquality = (this.GetName() == newPlayer.GetName());
+            bool agilityEquality = (this.GetAgility() == newPlayer.GetAgility());
+            bool intelligenceEquality = (this.GetIntelligence() == newPlayer.GetIntelligence());
+            bool strengthEquality = (this.GetStrength() == newPlayer.GetStrength());
+            bool luckEquality = (this.GetLuck() == newPlayer.GetLuck());
+
+            return (idEquality && nameEquality && agilityEquality && intelligenceEquality && strengthEquality && luckEquality);
+        }
+    }
+
+    public override int GetHashCode()
+    {
+        return this.GetName().GetHashCode();
     }
   }
 }

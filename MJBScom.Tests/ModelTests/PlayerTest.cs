@@ -43,5 +43,32 @@ namespace MJBScom.Tests
             Assert.AreEqual(testStrength, resultStrength);
             Assert.AreEqual(testLuck, resultLuck);
         }
+
+        [TestMethod]
+        public void GetAll_DatabaseIsEmpty_0()
+        {
+            //arrange
+            Player newPlayer = new Player("Cameron", 5, 5, 5, 5);
+
+            //act
+            List<Player> result = Player.GetAll();
+
+            //assert
+            Assert.AreEqual(0, result.Count);
+        }
+
+        [TestMethod]
+        public void Equals_ReturnsTrueIfSame_Client()
+        {
+            //arrange, act
+            Player newPlayer1 = new Player("Cameron", 5, 5, 5, 5);
+            Player newPlayer2 = new Player("Cameron", 5, 5, 5, 5);
+
+            //assert
+            Assert.AreEqual(newPlayer1, newPlayer2);
+        }
+
+
+        
     }
 }
