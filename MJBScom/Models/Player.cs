@@ -21,11 +21,11 @@ namespace MJBScom.Models
       _luck = luck;
     }
 
-    public int GetId() {return _id};
-    public string GetName() {return _name};
-    public int GetAgility() {return _agility};
-    public int GetIntelligence() {return _intelligence};
-    public int GetStrength() {return _strength};
-    public int GetLuck() {return _luck};
+    public int GetId() {return _id;}
+    public string GetName() {return _name;}
+    public int GetAgility() {return _agility;}
+    public int GetIntelligence() {return _intelligence;}
+    public int GetStrength() {return _strength;}
+    public int GetLuck() {return _luck;}
   }
 }
