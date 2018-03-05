@@ -141,11 +141,35 @@ namespace MJBScom.Models
                 conn.Dispose();
             }
         }
-        //
-        // public void Update()
-        // {
-        //
-        // }
+
+        public void Update(string name, int agility, int intelligence, int strength, int luck)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"UPDATE `players` SET `name` = @Name, `agility` = @Agility, `intelligence` = @Intelligence, `strength` = @Strength, `luck` = @Luck WHERE id = @ThisId;";
+
+            cmd.Parameters.AddWithValue("@ThisId", this._id);
+            cmd.Parameters.AddWithValue("@Name", name);
+            cmd.Parameters.AddWithValue("@Agility", agility);
+            cmd.Parameters.AddWithValue("@Intelligence", intelligence);
+            cmd.Parameters.AddWithValue("@Strength", strength);
+            cmd.Parameters.AddWithValue("@Luck", luck);
+
+            cmd.ExecuteNonQuery();
+
+            _name = name;
+            _agility = agility;
+            _intelligence = intelligence;
+            _strength = strength;
+            _luck = luck;
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
 
         public static Player Find(int findId)
         {

@@ -103,7 +103,6 @@ namespace MJBScom.Tests
         public void Delete_DeletesFromDB_Void()
         {
             //arrange
-
             Player newPlayer1 = new Player("Cameron", 5, 5, 5, 5);
             Player newPlayer2 = new Player("Cameron", 5, 5, 5, 5);
             newPlayer1.Save();
@@ -118,11 +117,28 @@ namespace MJBScom.Tests
             CollectionAssert.AreEqual(newList, originalList);
         }
 
-        // [TestMethod]
-        // public void Update_UpdatesPlayerinDB_UpdatedValues()
-        // {
-        //
-        // }
+        [TestMethod]
+        public void Update_UpdatesPlayerinDB_UpdatedValues()
+        {
+            //arrange
+            Player newPlayer = new Player("Cameron", 5, 5, 5, 5);
+            newPlayer.Save();
+            string newName = "Bill";
+            int newAgility = 1;
+            int newIntelligence = 3;
+            int newStrength = 3;
+            int newLuck = 3;
+
+            //act
+            newPlayer.Update(newName, newAgility, newIntelligence, newStrength, newLuck);
+
+            //assert
+            Assert.AreEqual(newName, newPlayer.GetName());
+            Assert.AreEqual(newAgility, newPlayer.GetAgility());
+            Assert.AreEqual(newIntelligence, newPlayer.GetIntelligence());
+            Assert.AreEqual(newStrength, newPlayer.GetStrength());
+            Assert.AreEqual(newLuck, newPlayer.GetLuck());
+        }
 
         [TestMethod]
         public void Find_FindsPlayer_Player()
