@@ -9,6 +9,8 @@ namespace MJBScom.Models
     private int _id;
     private string _name;
     private bool _hometeam;
+    private int _xPos;
+    private int _yPos;
 
     public Team(string name, int id = 0, bool hometeam = true)
     {
@@ -20,6 +22,17 @@ namespace MJBScom.Models
     public int GetId() { return _id; }
     public string GetName() { return _name; }
     public bool GetHometeam() { return _hometeam; }
+    public int GetXPos() { return _xPos; }
+    public int GetYPos() { return _yPos; }
+    
+    public void SetX(int x)
+    {
+      _xPos = x;
+    }
+    public void SetY(int y)
+    {
+      _xPos = y;
+    }
 
     public static void DeleteAll()
     {
