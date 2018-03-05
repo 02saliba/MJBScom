@@ -36,6 +36,14 @@ namespace MJBScom.Models
         public int GetStrength() {return _strength;}
         public int GetLuck() {return _luck;}
 
+        public void SetName(string name) {_name = name;}
+        public void SetHPTotal(int hpTotal) {_hpTotal = hpTotal;}
+        public void SetHPRemaining(int hpRemaining) {_hpRemaining = hpRemaining;}
+        public void SetAgility(int agility) {_agility = agility;}
+        public void SetIntelligence(int intelligence) {_intelligence = intelligence;}
+        public void SetStrength(int strength) {_strength = strength;}
+        public void SetLuck(int luck) {_luck = luck;}
+
         public static void DeleteAll()
         {
             MySqlConnection conn = DB.Connection();
@@ -154,7 +162,7 @@ namespace MJBScom.Models
             }
         }
 
-        public void Update(string name, int hpTotal, int hpRemaining, int agility, int intelligence, int strength, int luck)
+        public void Update()
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
@@ -162,23 +170,15 @@ namespace MJBScom.Models
             cmd.CommandText = @"UPDATE `players` SET `name` = @Name, `hp_total` = @HPTotal, `hp_remaining` = @HPRemaining, `agility` = @Agility, `intelligence` = @Intelligence, `strength` = @Strength, `luck` = @Luck WHERE id = @ThisId;";
 
             cmd.Parameters.AddWithValue("@ThisId", this._id);
-            cmd.Parameters.AddWithValue("@Name", name);
-            cmd.Parameters.AddWithValue("@HPTotal", hpTotal);
-            cmd.Parameters.AddWithValue("@HPRemaining", hpRemaining);
-            cmd.Parameters.AddWithValue("@Agility", agility);
-            cmd.Parameters.AddWithValue("@Intelligence", intelligence);
-            cmd.Parameters.AddWithValue("@Strength", strength);
-            cmd.Parameters.AddWithValue("@Luck", luck);
+            cmd.Parameters.AddWithValue("@Name", this._name);
+            cmd.Parameters.AddWithValue("@HPTotal", this._hpTotal);
+            cmd.Parameters.AddWithValue("@HPRemaining", this._hpRemaining);
+            cmd.Parameters.AddWithValue("@Agility", this._agility);
+            cmd.Parameters.AddWithValue("@Intelligence", this._intelligence);
+            cmd.Parameters.AddWithValue("@Strength", this._strength);
+            cmd.Parameters.AddWithValue("@Luck", this._luck);
 
             cmd.ExecuteNonQuery();
-
-            _name = name;
-            _agility = agility;
-            _hpTotal = hpTotal;
-            _hpRemaining = hpRemaining;
-            _intelligence = intelligence;
-            _strength = strength;
-            _luck = luck;
 
             conn.Close();
             if (conn != null)

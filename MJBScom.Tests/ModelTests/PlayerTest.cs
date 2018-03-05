@@ -124,11 +124,10 @@ namespace MJBScom.Tests
         }
 
         [TestMethod]
-        public void Update_UpdatesPlayerinDB_UpdatedValues()
+        public void Setters_CheckSetOnObjects_SetValue()
         {
             //arrange
             Player newPlayer = new Player("Cameron", 20, 20, 5, 5, 5, 5);
-            newPlayer.Save();
             string newName = "Bill";
             int newHPTotal = 25;
             int newHPRemaining = 24;
@@ -138,16 +137,38 @@ namespace MJBScom.Tests
             int newLuck = 3;
 
             //act
-            newPlayer.Update(newName, newHPTotal, newHPRemaining, newAgility, newIntelligence, newStrength, newLuck);
+            newPlayer.SetName(newName);
+            newPlayer.SetHPTotal(newHPTotal);
+            newPlayer.SetHPRemaining(newHPRemaining);
+            newPlayer.SetAgility(newAgility);
+            newPlayer.SetIntelligence(newIntelligence);
+            newPlayer.SetStrength(newStrength);
+            newPlayer.SetLuck(newLuck);
 
             //assert
             Assert.AreEqual(newName, newPlayer.GetName());
-            Assert.AreEqual(newAgility, newPlayer.GetAgility());
             Assert.AreEqual(newHPTotal, newPlayer.GetHPTotal());
             Assert.AreEqual(newHPRemaining, newPlayer.GetHPRemaining());
+            Assert.AreEqual(newAgility, newPlayer.GetAgility());
             Assert.AreEqual(newIntelligence, newPlayer.GetIntelligence());
             Assert.AreEqual(newStrength, newPlayer.GetStrength());
             Assert.AreEqual(newLuck, newPlayer.GetLuck());
+        }
+
+        [TestMethod]
+        public void Update_UpdatesPlayerinDB_UpdatedValues()
+        {
+            //arrange
+            Player newPlayer = new Player("Cameron", 20, 20, 5, 5, 5, 5);
+            newPlayer.Save();
+            newPlayer.SetName("Bill");
+
+            //act
+            newPlayer.Update();
+            Player checkPlayer = Player.Find(newPlayer.GetId());
+
+            //assert
+            Assert.AreEqual(newPlayer.GetName(), checkPlayer.GetName());
         }
 
         [TestMethod]
