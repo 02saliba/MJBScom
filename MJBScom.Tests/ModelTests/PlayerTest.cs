@@ -99,12 +99,25 @@ namespace MJBScom.Tests
             Assert.AreEqual(result, testId);
         }
 
-        // [TestMethod]
-        // public void Delete_DeletesFromDB_Void()
-        // {
-        //
-        // }
-        //
+        [TestMethod]
+        public void Delete_DeletesFromDB_Void()
+        {
+            //arrange
+
+            Player newPlayer1 = new Player("Cameron", 5, 5, 5, 5);
+            Player newPlayer2 = new Player("Cameron", 5, 5, 5, 5);
+            newPlayer1.Save();
+            List<Player> originalList = Player.GetAll();
+            newPlayer2.Save();
+
+            //act
+            newPlayer2.Delete();
+            List<Player> newList = Player.GetAll();
+
+            //assert
+            CollectionAssert.AreEqual(newList, originalList);
+        }
+
         // [TestMethod]
         // public void Update_UpdatesPlayerinDB_UpdatedValues()
         // {

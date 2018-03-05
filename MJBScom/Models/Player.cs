@@ -125,10 +125,22 @@ namespace MJBScom.Models
             return this.GetName().GetHashCode();
         }
 
-        // public void Delete()
-        // {
-        //
-        // }
+        public void Delete()
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"DELETE FROM `players` WHERE id = @ThisId;";
+
+            cmd.Parameters.AddWithValue("@ThisId", this._id);
+
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
         //
         // public void Update()
         // {
