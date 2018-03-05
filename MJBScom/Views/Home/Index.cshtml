@@ -2,5 +2,17 @@
   Layout = "_Layout";
 }
 
-<h2>Index Stuff Goes Here</h2>
-<h3>@Model</h3>
+<div id='court'>
+  @{
+    for (int y = 0; y < 11; y++)
+    {
+      <row>
+      @for (int x = 0; x < 21; x++)
+      {
+        <div class='tile'>&nbsp;</div>
+      }
+      <br>
+      </row>
+    }
+  }
+</div>
