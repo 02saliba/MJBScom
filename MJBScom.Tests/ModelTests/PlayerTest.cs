@@ -99,6 +99,32 @@ namespace MJBScom.Tests
             Assert.AreEqual(result, testId);
         }
 
+        // [TestMethod]
+        // public void Delete_DeletesFromDB_Void()
+        // {
+        //
+        // }
+        //
+        // [TestMethod]
+        // public void Update_UpdatesPlayerinDB_UpdatedValues()
+        // {
+        //
+        // }
+
+        [TestMethod]
+        public void Find_FindsPlayer_Player()
+        {
+            //arrange
+           Player controlPlayer = new Player("Cameron", 5, 5, 5, 5);
+           controlPlayer.Save();
+
+           //act
+           Player foundPlayer = Player.Find(controlPlayer.GetId());
+
+           //Assert
+           Assert.AreEqual(foundPlayer, controlPlayer);
+        }
+
 
 
     }
