@@ -64,7 +64,7 @@ namespace MJBScom.Models
     }
 
 
-    public static void Delete()
+    public void Delete()
     {
       MySqlConnection conn = DB.Connection();
       conn.Open();
@@ -82,7 +82,6 @@ namespace MJBScom.Models
       {
         conn.Dispose();
       }
-
     }
   }
 }
