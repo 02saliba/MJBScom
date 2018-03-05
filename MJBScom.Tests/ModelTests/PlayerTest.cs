@@ -6,7 +6,7 @@ using System;
 namespace MJBScom.Tests
 {
     [TestClass]
-    public class PlayerTests
+    public class PlayerTests : IDisposable
     {
         public void Dispose()
         {
@@ -68,7 +68,38 @@ namespace MJBScom.Tests
             Assert.AreEqual(newPlayer1, newPlayer2);
         }
 
+        [TestMethod]
+        public void Save_SavesToDatabase_ClientList()
+        {
+            //arrange
+            Player newPlayer = new Player("Cameron", 5, 5, 5, 5);
 
-        
+            //act
+            newPlayer.Save();
+            List<Player> result = Player.GetAll();
+            List<Player> testList = new List<Player>{newPlayer};
+
+            //assert
+            CollectionAssert.AreEqual(testList, result);
+        }
+
+        [TestMethod]
+        public void Save_AssignsIdToObject_Id()
+        {
+            //arrange
+            Player newPlayer = new Player("Cameron", 5, 5, 5, 5);
+
+            //act
+            newPlayer.Save();
+            Player savedPlayer = Player.GetAll()[0];
+            int result = savedPlayer.GetId();
+            int testId = newPlayer.GetId();
+
+            //assign
+            Assert.AreEqual(result, testId);
+        }
+
+
+
     }
 }

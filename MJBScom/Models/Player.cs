@@ -50,26 +50,26 @@ namespace MJBScom.Models
 
     public void Save()
     {
-        // MySqlConnection conn = DB.Connection();
-        // conn.Open();
-        // var cmd = conn.CreateCommand() as MySqlCommand;
-        // cmd.CommandText = @"INSERT INTO `players` (`id`, `name`, `agility`, `intelligence`, `strength`, `luck`) VALUES (@ThisId, @Name, @Agility, @Intelligence, @Strength, @Luck);";
-        //
-        // cmd.Parameters.AddWithValue("@ThisId", this._id);
-        // cmd.Parameters.AddWithValue("@Name", this._name);
-        // cmd.Parameters.AddWithValue("@Agility", this._agility);
-        // cmd.Parameters.AddWithValue("@Intelligence", this._intelligence);
-        // cmd.Parameters.AddWithValue("@Strength", this._strength);
-        // cmd.Parameters.AddWithValue("@Luck", this._luck);
-        //
-        // cmd.ExecuteNonQuery();
-        // _id = (int) cmd.LastInsertedId;
-        //
-        // conn.Close();
-        // if (conn != null)
-        // {
-        //     conn.Dispose();
-        // }
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"INSERT INTO `players` (`id`, `name`, `agility`, `intelligence`, `strength`, `luck`) VALUES (@ThisId, @Name, @Agility, @Intelligence, @Strength, @Luck);";
+
+        cmd.Parameters.AddWithValue("@ThisId", this._id);
+        cmd.Parameters.AddWithValue("@Name", this._name);
+        cmd.Parameters.AddWithValue("@Agility", this._agility);
+        cmd.Parameters.AddWithValue("@Intelligence", this._intelligence);
+        cmd.Parameters.AddWithValue("@Strength", this._strength);
+        cmd.Parameters.AddWithValue("@Luck", this._luck);
+
+        cmd.ExecuteNonQuery();
+        _id = (int) cmd.LastInsertedId;
+
+        conn.Close();
+        if (conn != null)
+        {
+            conn.Dispose();
+        }
     }
 
     public static List<Player> GetAll()
