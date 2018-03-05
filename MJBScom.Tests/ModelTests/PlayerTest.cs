@@ -22,8 +22,10 @@ namespace MJBScom.Tests
         public void Getters_GetPlayerInfos_StringsInts()
         {
             //arrange
-            Player newPlayer = new Player("Cameron", 5, 5, 5, 5);
+            Player newPlayer = new Player("Cameron", 20, 20, 5, 5, 5, 5);
             string testName = "Cameron";
+            int testHPTotal = 20;
+            int testHPRemaining = 20;
             int testAgility = 5;
             int testIntel = 5;
             int testStrength = 5;
@@ -31,6 +33,8 @@ namespace MJBScom.Tests
 
             //act
             string resultName = newPlayer.GetName();
+            int resultHPTotal = newPlayer.GetHPTotal();
+            int resultHPRemaining = newPlayer.GetHPRemaining();
             int resultAgility = newPlayer.GetAgility();
             int resultIntel = newPlayer.GetIntelligence();
             int resultStrength = newPlayer.GetStrength();
@@ -38,6 +42,8 @@ namespace MJBScom.Tests
 
             //assert
             Assert.AreEqual(testName, resultName);
+            Assert.AreEqual(testHPTotal, resultHPTotal);
+            Assert.AreEqual(testHPRemaining, resultHPRemaining);
             Assert.AreEqual(testAgility, resultAgility);
             Assert.AreEqual(testIntel, resultIntel);
             Assert.AreEqual(testStrength, resultStrength);
@@ -48,7 +54,7 @@ namespace MJBScom.Tests
         public void GetAll_DatabaseIsEmpty_0()
         {
             //arrange
-            Player newPlayer = new Player("Cameron", 5, 5, 5, 5);
+            Player newPlayer = new Player("Cameron", 20, 20, 5, 5, 5, 5);
 
             //act
             List<Player> result = Player.GetAll();
@@ -61,8 +67,8 @@ namespace MJBScom.Tests
         public void Equals_ReturnsTrueIfSame_Client()
         {
             //arrange, act
-            Player newPlayer1 = new Player("Cameron", 5, 5, 5, 5);
-            Player newPlayer2 = new Player("Cameron", 5, 5, 5, 5);
+            Player newPlayer1 = new Player("Cameron", 20, 20, 5, 5, 5, 5);
+            Player newPlayer2 = new Player("Cameron", 20, 20, 5, 5, 5, 5);
 
             //assert
             Assert.AreEqual(newPlayer1, newPlayer2);
@@ -72,7 +78,7 @@ namespace MJBScom.Tests
         public void Save_SavesToDatabase_ClientList()
         {
             //arrange
-            Player newPlayer = new Player("Cameron", 5, 5, 5, 5);
+            Player newPlayer = new Player("Cameron", 20, 20, 5, 5, 5, 5);
 
             //act
             newPlayer.Save();
@@ -87,7 +93,7 @@ namespace MJBScom.Tests
         public void Save_AssignsIdToObject_Id()
         {
             //arrange
-            Player newPlayer = new Player("Cameron", 5, 5, 5, 5);
+            Player newPlayer = new Player("Cameron", 20, 20, 5, 5, 5, 5);
 
             //act
             newPlayer.Save();
@@ -103,8 +109,8 @@ namespace MJBScom.Tests
         public void Delete_DeletesFromDB_Void()
         {
             //arrange
-            Player newPlayer1 = new Player("Cameron", 5, 5, 5, 5);
-            Player newPlayer2 = new Player("Cameron", 5, 5, 5, 5);
+            Player newPlayer1 = new Player("Cameron", 20, 20, 5, 5, 5, 5);
+            Player newPlayer2 = new Player("Cameron", 20, 20, 5, 5, 5, 5);
             newPlayer1.Save();
             List<Player> originalList = Player.GetAll();
             newPlayer2.Save();
@@ -121,20 +127,24 @@ namespace MJBScom.Tests
         public void Update_UpdatesPlayerinDB_UpdatedValues()
         {
             //arrange
-            Player newPlayer = new Player("Cameron", 5, 5, 5, 5);
+            Player newPlayer = new Player("Cameron", 20, 20, 5, 5, 5, 5);
             newPlayer.Save();
             string newName = "Bill";
+            int newHPTotal = 25;
+            int newHPRemaining = 24;
             int newAgility = 1;
             int newIntelligence = 3;
             int newStrength = 3;
             int newLuck = 3;
 
             //act
-            newPlayer.Update(newName, newAgility, newIntelligence, newStrength, newLuck);
+            newPlayer.Update(newName, newHPTotal, newHPRemaining, newAgility, newIntelligence, newStrength, newLuck);
 
             //assert
             Assert.AreEqual(newName, newPlayer.GetName());
             Assert.AreEqual(newAgility, newPlayer.GetAgility());
+            Assert.AreEqual(newHPTotal, newPlayer.GetHPTotal());
+            Assert.AreEqual(newHPRemaining, newPlayer.GetHPRemaining());
             Assert.AreEqual(newIntelligence, newPlayer.GetIntelligence());
             Assert.AreEqual(newStrength, newPlayer.GetStrength());
             Assert.AreEqual(newLuck, newPlayer.GetLuck());
@@ -144,7 +154,7 @@ namespace MJBScom.Tests
         public void Find_FindsPlayer_Player()
         {
             //arrange
-           Player controlPlayer = new Player("Cameron", 5, 5, 5, 5);
+           Player controlPlayer = new Player("Cameron", 20, 20, 5, 5, 5, 5);
            controlPlayer.Save();
 
            //act

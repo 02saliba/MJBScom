@@ -8,15 +8,19 @@ namespace MJBScom.Models
     {
         private int _id;
         private string _name;
+        private int _hpTotal;
+        private int _hpRemaining;
         private int _agility;
         private int _intelligence;
         private int _strength;
         private int _luck;
 
-        public Player(string name, int agility, int intel, int strength, int luck, int id = 0)
+        public Player(string name, int hpTotal, int hpRemaining, int agility, int intel, int strength, int luck, int id = 0)
         {
           _id = id;
           _name = name;
+          _hpTotal = hpTotal;
+          _hpRemaining = hpRemaining;
           _agility = agility;
           _intelligence = intel;
           _strength = strength;
@@ -25,6 +29,8 @@ namespace MJBScom.Models
 
         public int GetId() {return _id;}
         public string GetName() {return _name;}
+        public int GetHPTotal() {return _hpTotal;}
+        public int GetHPRemaining() {return _hpRemaining;}
         public int GetAgility() {return _agility;}
         public int GetIntelligence() {return _intelligence;}
         public int GetStrength() {return _strength;}
@@ -53,10 +59,12 @@ namespace MJBScom.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"INSERT INTO `players` (`id`, `name`, `agility`, `intelligence`, `strength`, `luck`) VALUES (@ThisId, @Name, @Agility, @Intelligence, @Strength, @Luck);";
+            cmd.CommandText = @"INSERT INTO `players` (`id`, `name`, `hp_total`, `hp_remaining`, `agility`, `intelligence`, `strength`, `luck`) VALUES (@ThisId, @Name, @HPTotal, @HPRemaining, @Agility, @Intelligence, @Strength, @Luck);";
 
             cmd.Parameters.AddWithValue("@ThisId", this._id);
             cmd.Parameters.AddWithValue("@Name", this._name);
+            cmd.Parameters.AddWithValue("@HPTotal", this._hpTotal);
+            cmd.Parameters.AddWithValue("@HPRemaining", this._hpRemaining);
             cmd.Parameters.AddWithValue("@Agility", this._agility);
             cmd.Parameters.AddWithValue("@Intelligence", this._intelligence);
             cmd.Parameters.AddWithValue("@Strength", this._strength);
@@ -84,11 +92,13 @@ namespace MJBScom.Models
             {
                 int playerId = rdr.GetInt32(0);
                 string playerName = rdr.GetString(1);
-                int playerAgility = rdr.GetInt32(6);
-                int playerIntelligence = rdr.GetInt32(7);
-                int playerStrength = rdr.GetInt32(8);
-                int playerLuck = rdr.GetInt32(9);
-                Player newPlayer = new Player(playerName, playerAgility, playerIntelligence, playerStrength, playerLuck, playerId);
+                int playerHPTotal = rdr.GetInt32(2);
+                int playerHPRemaining = rdr.GetInt32(3);
+                int playerAgility = rdr.GetInt32(5);
+                int playerIntelligence = rdr.GetInt32(6);
+                int playerStrength = rdr.GetInt32(7);
+                int playerLuck = rdr.GetInt32(8);
+                Player newPlayer = new Player(playerName, playerHPTotal, playerHPRemaining, playerAgility, playerIntelligence, playerStrength, playerLuck, playerId);
 
                 allPlayers.Add(newPlayer);
             }
@@ -111,12 +121,14 @@ namespace MJBScom.Models
                 Player newPlayer = (Player) otherPlayer;
                 bool idEquality = (this.GetId() == newPlayer.GetId());
                 bool nameEquality = (this.GetName() == newPlayer.GetName());
+                bool hpTotalEquality = (this.GetHPTotal() == newPlayer.GetHPTotal());
+                bool hpRemainingEquality = (this.GetHPRemaining() == newPlayer.GetHPRemaining());
                 bool agilityEquality = (this.GetAgility() == newPlayer.GetAgility());
                 bool intelligenceEquality = (this.GetIntelligence() == newPlayer.GetIntelligence());
                 bool strengthEquality = (this.GetStrength() == newPlayer.GetStrength());
                 bool luckEquality = (this.GetLuck() == newPlayer.GetLuck());
 
-                return (idEquality && nameEquality && agilityEquality && intelligenceEquality && strengthEquality && luckEquality);
+                return (idEquality && nameEquality && hpTotalEquality && hpRemainingEquality && agilityEquality && intelligenceEquality && strengthEquality && luckEquality);
             }
         }
 
@@ -142,15 +154,17 @@ namespace MJBScom.Models
             }
         }
 
-        public void Update(string name, int agility, int intelligence, int strength, int luck)
+        public void Update(string name, int hpTotal, int hpRemaining, int agility, int intelligence, int strength, int luck)
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"UPDATE `players` SET `name` = @Name, `agility` = @Agility, `intelligence` = @Intelligence, `strength` = @Strength, `luck` = @Luck WHERE id = @ThisId;";
+            cmd.CommandText = @"UPDATE `players` SET `name` = @Name, `hp_total` = @HPTotal, `hp_remaining` = @HPRemaining, `agility` = @Agility, `intelligence` = @Intelligence, `strength` = @Strength, `luck` = @Luck WHERE id = @ThisId;";
 
             cmd.Parameters.AddWithValue("@ThisId", this._id);
             cmd.Parameters.AddWithValue("@Name", name);
+            cmd.Parameters.AddWithValue("@HPTotal", hpTotal);
+            cmd.Parameters.AddWithValue("@HPRemaining", hpRemaining);
             cmd.Parameters.AddWithValue("@Agility", agility);
             cmd.Parameters.AddWithValue("@Intelligence", intelligence);
             cmd.Parameters.AddWithValue("@Strength", strength);
@@ -160,6 +174,8 @@ namespace MJBScom.Models
 
             _name = name;
             _agility = agility;
+            _hpTotal = hpTotal;
+            _hpRemaining = hpRemaining;
             _intelligence = intelligence;
             _strength = strength;
             _luck = luck;
@@ -183,6 +199,8 @@ namespace MJBScom.Models
 
             int playerId = 0;
             string playerName = "";
+            int playerHPTotal = 0;
+            int playerHPRemaining = 0;
             int playerAgility = 0;
             int playerIntelligence = 0;
             int playerStrength = 0;
@@ -193,13 +211,15 @@ namespace MJBScom.Models
             {
                 playerId = rdr.GetInt32(0);
                 playerName = rdr.GetString(1);
-                playerAgility = rdr.GetInt32(6);
-                playerIntelligence = rdr.GetInt32(7);
-                playerStrength = rdr.GetInt32(8);
-                playerLuck = rdr.GetInt32(9);
+                playerHPTotal = rdr.GetInt32(2);
+                playerHPRemaining = rdr.GetInt32(3);
+                playerAgility = rdr.GetInt32(5);
+                playerIntelligence = rdr.GetInt32(6);
+                playerStrength = rdr.GetInt32(7);
+                playerLuck = rdr.GetInt32(8);
             }
 
-            Player foundPlayer = new Player(playerName, playerAgility, playerIntelligence, playerStrength, playerLuck, playerId);
+            Player foundPlayer = new Player(playerName, playerHPTotal, playerHPRemaining, playerAgility, playerIntelligence, playerStrength, playerLuck, playerId);
 
             conn.Close();
             if (conn != null)
