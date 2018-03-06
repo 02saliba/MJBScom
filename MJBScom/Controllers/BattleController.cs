@@ -40,6 +40,20 @@ namespace MJBScom.Controllers
       return View("Index", model);
     }
 
+//start battle
+    [HttpGet("/battle/{id}")]
+    public ActionResult StartBattle()
+    {
+    //  Team goodTeam = Team.Find(...); what to pass in?
+      Team enemyTeam = Team.Find(int id);
+      Player frontPlayer = 
+      Dictionary<string, object> model = new Dictionary<string, object>();
+      model.Add("goodTeam", goodTeam);
+      model.Add("enemyTeam", enemyTeam);
+
+      return View("Index", model);
+    }
+
     [HttpGet("/battle/{attackerId}/attack/{targetId}")]
     public ActionResult Attack(int attackerId, int targetId)
     {
