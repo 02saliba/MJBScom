@@ -9,7 +9,27 @@
       <row>
       @for (int x = 0; x < 21; x++)
       {
-        <div class='tile'>&nbsp;</div>
+        bool hasPlayer = false;
+        for (int i = 1; i < Model.Count; i++)
+        {
+          var player = Model[i];
+
+          if (player.GetX() == x && player.GetY() == y)
+          {
+            <div class='tile'><a href="/battle/@Model[0].GetId()/@player.GetId()">@player.GetId()</a></div>
+            hasPlayer = true;
+          }
+        }
+        if (Model[0].GetX() == x && Model[0].GetY() == y)
+        {
+          hasPlayer = true;
+          <div class='tile'>:0</div>
+        }
+
+        if (!hasPlayer)
+        {
+          <div class='tile'>&nbsp;</div>
+        }
       }
       <br>
       </row>
