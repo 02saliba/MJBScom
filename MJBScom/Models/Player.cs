@@ -14,6 +14,7 @@ namespace MJBScom.Models
         private int _intelligence;
         private int _strength;
         private int _luck;
+        private bool _allegience;
 
         public Player(string name, int hpTotal, int hpRemaining, int agility, int intel, int strength, int luck, int id = 0)
         {
@@ -25,6 +26,7 @@ namespace MJBScom.Models
           _intelligence = intel;
           _strength = strength;
           _luck = luck;
+          _allegience = false;
         }
         public Player(string name, int hpTotal, int hpRemaining, int id = 0)
         {
@@ -32,6 +34,7 @@ namespace MJBScom.Models
           _name = name;
           _hpTotal = hpTotal;
           _hpRemaining = hpRemaining;
+          _allegience = false;
           Random r = new Random();
           for (int i = 0; i < 20; i++) {
             int stat = r.Next(4);
@@ -61,6 +64,7 @@ namespace MJBScom.Models
         public int GetIntelligence() {return _intelligence;}
         public int GetStrength() {return _strength;}
         public int GetLuck() {return _luck;}
+        public bool GetAllegience() {return _allegience;}
 
         public void SetName(string name) {_name = name;}
         public void SetHPTotal(int hpTotal) {_hpTotal = hpTotal;}
@@ -69,6 +73,7 @@ namespace MJBScom.Models
         public void SetIntelligence(int intelligence) {_intelligence = intelligence;}
         public void SetStrength(int strength) {_strength = strength;}
         public void SetLuck(int luck) {_luck = luck;}
+        public void SetAllegience(bool side) {_allegience = side;}
 
         public static void DeleteAll()
         {

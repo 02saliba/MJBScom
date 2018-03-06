@@ -25,34 +25,19 @@ namespace MJBScom.Controllers
     //   return View("Index", model);
     // }
 
-    [HttpGet("/battle")]
-    public ActionResult Index()
+    [HttpGet("/battle/{attackerId}/{targetId}")]
+    public ActionResult Index(int attackerId, int targetId)
     {
-      Player UserPlayer = new Player("Cameron", 50, 50);
-      UserPlayer.Save();
-      Player EnemyPlayer = new Player("Not Cameron", 20, 20);
-      EnemyPlayer.Save();
+      Player userPlayer = Player.Find(attackerId);
+      Player enemyPlayer = Player.Find(targetId);
 
       Dictionary<string, object> model = new Dictionary<string, object>();
-      model.Add("user", UserPlayer);
-      model.Add("enemy", EnemyPlayer);
+      model.Add("user", userPlayer);
+      model.Add("enemy", enemyPlayer);
 
       return View("Index", model);
     }
 
-//start battle
-    [HttpGet("/battle/{id}")]
-    public ActionResult StartBattle()
-    {
-    //  Team goodTeam = Team.Find(...); what to pass in?
-      Team enemyTeam = Team.Find(int id);
-      Player frontPlayer = 
-      Dictionary<string, object> model = new Dictionary<string, object>();
-      model.Add("goodTeam", goodTeam);
-      model.Add("enemyTeam", enemyTeam);
-
-      return View("Index", model);
-    }
 
     [HttpGet("/battle/{attackerId}/attack/{targetId}")]
     public ActionResult Attack(int attackerId, int targetId)
@@ -66,6 +51,12 @@ namespace MJBScom.Controllers
       Dictionary<string, object> model = new Dictionary<string, object>();
       model.Add("user", attacker);
       model.Add("enemy", target);
+
+      if (target.GetHPRemaining() <= 0)
+      {
+        target.Delete();
+        return RedirectToAction("Index", "Court");
+      }
 
       return View("Index", model);
     }

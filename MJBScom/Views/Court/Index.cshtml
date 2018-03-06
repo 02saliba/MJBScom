@@ -9,7 +9,18 @@
       <row>
       @for (int x = 0; x < 21; x++)
       {
-        <div class='tile'>&nbsp;</div>
+        if (y == 3 && x == 3)
+        {
+          <div class='tile'><a href="/battle/@Model[0].GetId()/@Model[1].GetId()">@Model[1].GetId()</a></div>
+        }
+        else if (y == 0 && x == 0)
+        {
+          <div class='tile'>@Model[0].GetName()</div>
+        }
+        else
+        {
+          <div class='tile'>&nbsp;</div>
+        }
       }
       <br>
       </row>
