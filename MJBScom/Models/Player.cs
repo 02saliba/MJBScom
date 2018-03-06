@@ -15,6 +15,8 @@ namespace MJBScom.Models
         private int _strength;
         private int _luck;
         private bool _allegience;
+        private int _xPos = 0;
+        private int _yPos = 0;
 
         public Player(string name, int hpTotal, int hpRemaining, int agility, int intel, int strength, int luck, int id = 0)
         {
@@ -65,6 +67,8 @@ namespace MJBScom.Models
         public int GetStrength() {return _strength;}
         public int GetLuck() {return _luck;}
         public bool GetAllegience() {return _allegience;}
+        public int GetX() { return _xPos; }
+        public int GetY() { return _yPos; }
 
         public void SetName(string name) {_name = name;}
         public void SetHPTotal(int hpTotal) {_hpTotal = hpTotal;}
@@ -74,6 +78,8 @@ namespace MJBScom.Models
         public void SetStrength(int strength) {_strength = strength;}
         public void SetLuck(int luck) {_luck = luck;}
         public void SetAllegience(bool side) {_allegience = side;}
+        public void SetX(int x) { _xPos = x; }
+        public void SetY(int y) { _yPos = y; }
 
         public static void DeleteAll()
         {
@@ -98,7 +104,7 @@ namespace MJBScom.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"INSERT INTO `players` (`name`, `hp_total`, `hp_remaining`, `agility`, `intelligence`, `strength`, `luck`) VALUES (@Name, @HPTotal, @HPRemaining, @Agility, @Intelligence, @Strength, @Luck);";
+            cmd.CommandText = @"INSERT INTO `players` (`name`, `hp_total`, `hp_remaining`, `agility`, `intelligence`, `strength`, `luck`, `allegience`, `x_pos`, `y_pos`) VALUES (@Name, @HPTotal, @HPRemaining, @Agility, @Intelligence, @Strength, @Luck, @Allegience, @XPos, @YPos);";
 
             cmd.Parameters.AddWithValue("@Name", this._name);
             cmd.Parameters.AddWithValue("@HPTotal", this._hpTotal);
@@ -107,6 +113,9 @@ namespace MJBScom.Models
             cmd.Parameters.AddWithValue("@Intelligence", this._intelligence);
             cmd.Parameters.AddWithValue("@Strength", this._strength);
             cmd.Parameters.AddWithValue("@Luck", this._luck);
+            cmd.Parameters.AddWithValue("@Allegience", this._allegience);
+            cmd.Parameters.AddWithValue("@XPos", this._xPos);
+            cmd.Parameters.AddWithValue("@YPos", this._yPos);
 
             cmd.ExecuteNonQuery();
             _id = (int) cmd.LastInsertedId;
@@ -136,7 +145,13 @@ namespace MJBScom.Models
                 int playerIntelligence = rdr.GetInt32(6);
                 int playerStrength = rdr.GetInt32(7);
                 int playerLuck = rdr.GetInt32(8);
+                bool playerAllegience = rdr.GetBoolean(9);
+                int playerXPos = rdr.GetInt32(10);
+                int playerYPos = rdr.GetInt32(11);
                 Player newPlayer = new Player(playerName, playerHPTotal, playerHPRemaining, playerAgility, playerIntelligence, playerStrength, playerLuck, playerId);
+                newPlayer.SetAllegience(playerAllegience);
+                newPlayer.SetX(playerXPos);
+                newPlayer.SetY(playerYPos);
 
                 allPlayers.Add(newPlayer);
             }
@@ -197,7 +212,7 @@ namespace MJBScom.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"UPDATE `players` SET `name` = @Name, `hp_total` = @HPTotal, `hp_remaining` = @HPRemaining, `agility` = @Agility, `intelligence` = @Intelligence, `strength` = @Strength, `luck` = @Luck WHERE id = @ThisId;";
+            cmd.CommandText = @"UPDATE `players` SET `name` = @Name, `hp_total` = @HPTotal, `hp_remaining` = @HPRemaining, `agility` = @Agility, `intelligence` = @Intelligence, `strength` = @Strength, `luck` = @Luck, `allegience` = @Allegience, `x_pos` = @XPos, `y_pos` = @Ypos WHERE id = @ThisId;";
 
             cmd.Parameters.AddWithValue("@ThisId", this._id);
             cmd.Parameters.AddWithValue("@Name", this._name);
@@ -207,6 +222,9 @@ namespace MJBScom.Models
             cmd.Parameters.AddWithValue("@Intelligence", this._intelligence);
             cmd.Parameters.AddWithValue("@Strength", this._strength);
             cmd.Parameters.AddWithValue("@Luck", this._luck);
+            cmd.Parameters.AddWithValue("@Allegience", this._allegience);
+            cmd.Parameters.AddWithValue("@XPos", this._xPos);
+            cmd.Parameters.AddWithValue("@YPos", this._yPos);
 
             cmd.ExecuteNonQuery();
 
@@ -233,6 +251,9 @@ namespace MJBScom.Models
             int playerIntelligence = 0;
             int playerStrength = 0;
             int playerLuck = 0;
+            bool playerAllegience = false;
+            int playerXPos = 0;
+            int playerYPos = 0;
 
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
             if (rdr.Read())
@@ -245,8 +266,14 @@ namespace MJBScom.Models
                 playerIntelligence = rdr.GetInt32(6);
                 playerStrength = rdr.GetInt32(7);
                 playerLuck = rdr.GetInt32(8);
+                playerAllegience = rdr.GetBoolean(9);
+                playerXPos = rdr.GetInt32(10);
+                playerYPos = rdr.GetInt32(11);
             }
             Player foundPlayer = new Player(playerName, playerHPTotal, playerHPRemaining, playerAgility, playerIntelligence, playerStrength, playerLuck, playerId);
+            foundPlayer.SetAllegience(playerAllegience);
+            foundPlayer.SetX(playerXPos);
+            foundPlayer.SetY(playerYPos);
 
             conn.Close();
             if (conn != null)

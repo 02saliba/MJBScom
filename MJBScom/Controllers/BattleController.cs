@@ -65,8 +65,15 @@ namespace MJBScom.Controllers
       if (target.GetHPRemaining() <= 0)
       {
         target.Delete();
+        if (Player.GetAll().Count == 1)
+        {
+          Player.DeleteAll();
+          return View("Win");
+        }
         return RedirectToAction("Index", "Court");
       }
+
+
 
       return View("Index", model);
     }

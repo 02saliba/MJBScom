@@ -37,11 +37,19 @@ namespace MJBScom.Controllers
       {
         Player newPlayer = new Player(name, 20, 20, agility, intel, strength, luck);
         newPlayer.SetAllegience(true);
+        newPlayer.SetX(0);
+        newPlayer.SetY(6);
         newPlayer.Save();
       }
       Player enemy1 = new Player("Joe", 20, 20);
+      enemy1.SetX(6);
+      enemy1.SetY(2);
       Player enemy2 = new Player("Frank", 20, 20);
+      enemy2.SetX(12);
+      enemy2.SetY(5);
       Player enemy3 = new Player("Cam", 20, 20);
+      enemy3.SetX(18);
+      enemy3.SetY(7);
       enemy1.Save();
       enemy2.Save();
       enemy3.Save();
