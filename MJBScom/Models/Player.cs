@@ -26,6 +26,32 @@ namespace MJBScom.Models
           _strength = strength;
           _luck = luck;
         }
+        public Player(string name, int hpTotal, int hpRemaining, int id = 0)
+        {
+          _id = id;
+          _name = name;
+          _hpTotal = hpTotal;
+          _hpRemaining = hpRemaining;
+          Random r = new Random();
+          for (int i = 0; i < 20; i++) {
+            int stat = r.Next(4);
+            switch(stat)
+            {
+              case 0:
+                _agility++;
+                break;
+              case 1:
+                _intelligence++;
+                break;
+              case 2:
+                _strength++;
+                break;
+              case 3:
+                _luck++;
+                break;
+            }
+          }
+        }
 
         public int GetId() {return _id;}
         public string GetName() {return _name;}
