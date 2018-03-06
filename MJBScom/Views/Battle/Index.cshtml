@@ -1,0 +1,28 @@
+@{
+  Layout = "_Layout";
+  var user = Model["user"];
+  var enemy = Model["enemy"];
+}
+
+<div class="col-md-6">
+  <h3>@user.GetName()</h3>
+  <div>
+    <p>HP: @user.GetHPRemaining() / @user.GetHPTotal()</p>
+    <p>Luck: @user.GetLuck()</p>
+    <p>Agility: @user.GetAgility()</p>
+    <p>Intelligence: @user.GetIntelligence()</p>
+    <p>Strength: @user.GetStrength()</p>
+  </div>
+  <a href='/battle/@user.GetId()/attack/@enemy.GetId()'><button type="button" name="button">Attack</button></a>
+</div>
+
+<div class="col-md-6">
+  <h3>@enemy.GetName()</h3>
+  <div>
+    <p>HP: @enemy.GetHPRemaining() / @enemy.GetHPTotal()</p>
+    <p>Luck: @enemy.GetLuck()</p>
+    <p>Agility: @enemy.GetAgility()</p>
+    <p>Intelligence: @enemy.GetIntelligence()</p>
+    <p>Strength: @enemy.GetStrength()</p>
+  </div>
+</div>
