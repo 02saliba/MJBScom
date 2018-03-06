@@ -26,6 +26,11 @@ namespace MJBScom.Controllers
       if (!int.TryParse(Request.Form["strength"], out strength)) strength=0;
       if (!int.TryParse(Request.Form["luck"], out luck)) luck=0;
 
+      // if(agility + intel + strength + luck > 20)
+      // {
+      //   return RedirectToAction("CreatePlayerForm");
+      // }
+
       if(agility == 0 && intel == 0 && strength == 0 && luck == 0)
       {
         Player newPlayer = new Player(name, 20, 20);
