@@ -51,6 +51,35 @@ namespace MJBScom.Tests
         }
 
         [TestMethod]
+        public void RandomConstructor_SetRandomStats_Player()
+        {
+            //arrange
+            Player newPlayer = new Player("Cameron", 20, 20);
+            string testName = "Cameron";
+            int testHPTotal = 20;
+            int testHPRemaining = 20;
+
+            //act
+            string resultName = newPlayer.GetName();
+            int resultHPTotal = newPlayer.GetHPTotal();
+            int resultHPRemaining = newPlayer.GetHPRemaining();
+            int statTotal = 0;
+
+            statTotal += newPlayer.GetAgility();
+            statTotal += newPlayer.GetIntelligence();
+            statTotal += newPlayer.GetStrength();
+            statTotal += newPlayer.GetLuck();
+
+            Console.WriteLine(newPlayer.GetAgility() + " " + newPlayer.GetIntelligence() + " " + newPlayer.GetStrength() + " " + newPlayer.GetLuck());
+
+            //assert
+            Assert.AreEqual(testName, resultName);
+            Assert.AreEqual(testHPTotal, resultHPTotal);
+            Assert.AreEqual(testHPRemaining, resultHPRemaining);
+            Assert.AreEqual(20, statTotal);
+        }
+
+        [TestMethod]
         public void GetAll_DatabaseIsEmpty_0()
         {
             //arrange
