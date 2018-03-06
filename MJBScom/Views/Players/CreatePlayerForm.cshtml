@@ -1,0 +1,29 @@
+@{
+  Layout = "_Layout";
+}
+
+<h2>Create Your Hero</h2>
+<form method="post" action="/players/new" id="test-form">
+  <div class="form-group">
+    <label for="name">Name your hero</label>
+    <input type="text" name="name">
+  </div>
+  <h3>Add your stats. You have 20 points to spend. If you enter nothing, we will randomly generate stats 4 u</h3>
+  <div class="form-group">
+    <label for="agility">Agility</label>
+    <input class="stat" id="agility" type="number" name="agility" max=10 min=0 value=5>
+  </div>
+  <div class="form-group">
+    <label for="intel">Intelligence</label>
+    <input class="stat" id="intel" type="number" name="intel" max=10 min=0 value=5>
+  </div>
+  <div class="form-group">
+    <label for="strength">Strength</label>
+    <input class="stat" id="strength" type="number" name="strength" max=10 min=0 value=5>
+  </div>
+  <div class="form-group">
+    <label for="luck">Luck</label>
+    <input class="stat" id="luck" type="number" name="luck" max=10  min=0 value=5>
+  </div>
+  <button class="stat" id="create-player-submit" type="submit">Create</button>
+</form>
