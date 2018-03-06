@@ -67,9 +67,8 @@ namespace MJBScom.Models
             MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"INSERT INTO `players` (`id`, `name`, `hp_total`, `hp_remaining`, `agility`, `intelligence`, `strength`, `luck`) VALUES (@ThisId, @Name, @HPTotal, @HPRemaining, @Agility, @Intelligence, @Strength, @Luck);";
+            cmd.CommandText = @"INSERT INTO `players` (`name`, `hp_total`, `hp_remaining`, `agility`, `intelligence`, `strength`, `luck`) VALUES (@Name, @HPTotal, @HPRemaining, @Agility, @Intelligence, @Strength, @Luck);";
 
-            cmd.Parameters.AddWithValue("@ThisId", this._id);
             cmd.Parameters.AddWithValue("@Name", this._name);
             cmd.Parameters.AddWithValue("@HPTotal", this._hpTotal);
             cmd.Parameters.AddWithValue("@HPRemaining", this._hpRemaining);
