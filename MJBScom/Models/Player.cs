@@ -6,6 +6,8 @@ namespace MJBScom.Models
 {
     public class Player
     {
+        private static Random r = new Random();
+
         private int _id;
         private string _name;
         private int _hpTotal;
@@ -37,8 +39,7 @@ namespace MJBScom.Models
           _hpTotal = hpTotal;
           _hpRemaining = hpRemaining;
           _allegience = false;
-          Random r = new Random();
-          for (int i = 0; i < 20; i++) {
+          for (int i = 0; i < 15; i++) {
             int stat = r.Next(4);
             switch(stat)
             {

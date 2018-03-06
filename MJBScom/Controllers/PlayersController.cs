@@ -10,6 +10,7 @@ namespace MJBScom.Controllers
     [HttpGet("/players/new")]
     public ActionResult CreatePlayerForm()
     {
+      Player.DeleteAll();
       return View();
     }
 
@@ -50,6 +51,7 @@ namespace MJBScom.Controllers
       Player enemy3 = new Player("Cam", 20, 20);
       enemy3.SetX(18);
       enemy3.SetY(7);
+
       enemy1.Save();
       enemy2.Save();
       enemy3.Save();

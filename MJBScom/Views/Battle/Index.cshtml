@@ -26,3 +26,19 @@
     <p>Strength: @enemy.GetStrength()</p>
   </div>
 </div>
+
+
+<div class="col-md-12">
+  @{
+    if (Model["userAttacked"])
+    {
+      <p>You did @Model["userDamage"] damage to @enemy.GetName()!!!!!!</p>
+    }
+
+    if (Model["enemyAttacked"])
+    {
+      <p>@enemy.GetName() did @Model["enemyDamage"] damage to you!!!!</p>
+    }
+  }
+
+</div>
