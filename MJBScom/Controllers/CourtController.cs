@@ -3,10 +3,10 @@ using MJBScom.Models;
 
 namespace MJBScom.Controllers
 {
-  public class HomeController : Controller
+  public class CourtController : Controller
   {
 
-    [HttpGet("/")]
+    [HttpGet("/court")]
     public ActionResult Index()
     {
       return View("Index");
