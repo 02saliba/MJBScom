@@ -8,46 +8,36 @@ namespace MJBScom.Controllers
   public class BattleController : Controller
   {
 
-    [HttpGet("/battle/start")]
-    public ActionResult StartBattle()
-    {
-      Team userTeam = new Team("Cam's Team", 0, true);
-      Team enemyTeam = new Team("Other Team", 0, false);
-
-      userTeam.Save();
-      enemyTeam.Save();
-
-      Player UserPlayer = new Player("Cameron", 50, 50);
-      UserPlayer.Save();
-      Player EnemyPlayer = new Player("Not Cameron", 20, 20);
-      EnemyPlayer.Save();
-
-      userTeam.AddPlayer(UserPlayer.GetId());
-      enemyTeam.AddPlayer(EnemyPlayer.GetId());
-
-      Console.WriteLine(userTeam.GetAllPlayers()[0].GetName());
-      Console.WriteLine(enemyTeam.GetAllPlayers()[0].GetName());
-
-      Dictionary<string, object> model = new Dictionary<string, object>();
-      model.Add("user", userTeam);
-      model.Add("enemy", enemyTeam);
-
-      return View("Index", model);
-    }
-
     [HttpGet("/battle/{attackerId}/{targetId}")]
     public ActionResult Index(int attackerId, int targetId)
     {
-      Player userPlayer = Player.Find(attackerId);
-      Player enemyPlayer = Player.Find(targetId);
+      Player attacker = Player.Find(attackerId);
+      Player target = Player.Find(targetId);
 
       Dictionary<string, object> model = new Dictionary<string, object>();
-      model.Add("user", userPlayer);
-      model.Add("enemy", enemyPlayer);
+      model.Add("user", attacker);
+      model.Add("enemy", target);
 
+      model.Add("userAttacked", false);
+      if (target.GetAgility() > attacker.GetAgility())
+      {
+        attacker.SetHPRemaining(attacker.GetHPRemaining() - target.GetStrength());
+        attacker.Update();
+        model.Add("enemyAttacked", true);
+        model.Add("enemyDamage", target.GetStrength());
+      }
+      else{
+        model.Add("enemyAttacked", false);
+      }
+
+      if (attacker.GetHPRemaining() <= 0)
+      {
+        Player.DeleteAll();
+        return RedirectToAction("Index", "Home");;
+      }
       return View("Index", model);
-    }
 
+    }
 
     [HttpGet("/battle/{attackerId}/attack/{targetId}")]
     public ActionResult Attack(int attackerId, int targetId)
@@ -55,12 +45,17 @@ namespace MJBScom.Controllers
       Player attacker = Player.Find(attackerId);
       Player target = Player.Find(targetId);
 
-      target.SetHPRemaining(target.GetHPRemaining() - attacker.GetStrength());
-      target.Update();
-
       Dictionary<string, object> model = new Dictionary<string, object>();
       model.Add("user", attacker);
       model.Add("enemy", target);
+      model.Add("enemyDamage", target.GetStrength());
+      model.Add("userDamage", attacker.GetStrength());
+
+      model.Add("userAttacked", true);
+      model.Add("enemyAttacked", true);
+
+      target.SetHPRemaining(target.GetHPRemaining() - attacker.GetStrength());
+      target.Update();
 
       if (target.GetHPRemaining() <= 0)
       {
@@ -73,7 +68,14 @@ namespace MJBScom.Controllers
         return RedirectToAction("Index", "Court");
       }
 
+      attacker.SetHPRemaining(attacker.GetHPRemaining() - target.GetStrength());
+      attacker.Update();
 
+      if (attacker.GetHPRemaining() <= 0)
+      {
+        Player.DeleteAll();
+        return RedirectToAction("Index", "Home");
+      }
 
       return View("Index", model);
     }

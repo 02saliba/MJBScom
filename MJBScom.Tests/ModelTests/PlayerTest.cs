@@ -76,7 +76,7 @@ namespace MJBScom.Tests
             Assert.AreEqual(testName, resultName);
             Assert.AreEqual(testHPTotal, resultHPTotal);
             Assert.AreEqual(testHPRemaining, resultHPRemaining);
-            Assert.AreEqual(20, statTotal);
+            Assert.AreEqual(15, statTotal);
         }
 
         [TestMethod]
