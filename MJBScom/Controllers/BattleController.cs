@@ -58,6 +58,8 @@ namespace MJBScom.Controllers
       target.SetHPRemaining(target.GetHPRemaining() - attacker.GetStrength());
       target.Update();
 
+
+
       Dictionary<string, object> model = new Dictionary<string, object>();
       model.Add("user", attacker);
       model.Add("enemy", target);
@@ -73,7 +75,14 @@ namespace MJBScom.Controllers
         return RedirectToAction("Index", "Court");
       }
 
+      attacker.SetHPRemaining(attacker.GetHPRemaining() - target.GetStrength());
+      attacker.Update();
 
+      if (attacker.GetHPRemaining() <= 0)
+      {
+        Player.DeleteAll();
+        return RedirectToAction("Index", "Home");
+      }
 
       return View("Index", model);
     }
