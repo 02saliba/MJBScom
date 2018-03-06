@@ -216,10 +216,8 @@ namespace MJBScom.Models
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
-
             var cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText = @"SELECT * from `players` WHERE id = @ThisId;";
-
             cmd.Parameters.AddWithValue("@ThisId", findId);
 
             int playerId = 0;
@@ -232,7 +230,7 @@ namespace MJBScom.Models
             int playerLuck = 0;
 
             var rdr = cmd.ExecuteReader() as MySqlDataReader;
-            while (rdr.Read())
+            if (rdr.Read())
             {
                 playerId = rdr.GetInt32(0);
                 playerName = rdr.GetString(1);
@@ -243,17 +241,12 @@ namespace MJBScom.Models
                 playerStrength = rdr.GetInt32(7);
                 playerLuck = rdr.GetInt32(8);
             }
-
             Player foundPlayer = new Player(playerName, playerHPTotal, playerHPRemaining, playerAgility, playerIntelligence, playerStrength, playerLuck, playerId);
 
             conn.Close();
             if (conn != null)
-            {
-            conn.Dispose();
-            }
-
+              conn.Dispose();
             return foundPlayer;
-
         }
     }
 }

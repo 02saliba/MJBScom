@@ -95,10 +95,10 @@ CREATE TABLE `players_teams` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `team`
+-- Table structure for table `teams`
 --
 
-CREATE TABLE `team` (
+CREATE TABLE `teams` (
   `name` varchar(255) NOT NULL,
   `id` int(11) NOT NULL,
   `coordinates` varchar(255) NOT NULL,
@@ -145,9 +145,9 @@ ALTER TABLE `players_teams`
   ADD KEY `players_teams_fk1` (`team_id`);
 
 --
--- Indexes for table `team`
+-- Indexes for table `teams`
 --
-ALTER TABLE `team`
+ALTER TABLE `teams`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -180,9 +180,9 @@ ALTER TABLE `players`
 ALTER TABLE `players_teams`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `team`
+-- AUTO_INCREMENT for table `teams`
 --
-ALTER TABLE `team`
+ALTER TABLE `teams`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
@@ -192,7 +192,7 @@ ALTER TABLE `team`
 -- Constraints for table `inventory`
 --
 ALTER TABLE `inventory`
-  ADD CONSTRAINT `inventory_fk0` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `inventory_fk0` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `inventory_fk1` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`) ON DELETE CASCADE;
 
 --
@@ -206,7 +206,7 @@ ALTER TABLE `players`
 --
 ALTER TABLE `players_teams`
   ADD CONSTRAINT `players_teams_fk0` FOREIGN KEY (`player_id`) REFERENCES `players` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `players_teams_fk1` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `players_teams_fk1` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
@@ -321,10 +321,10 @@ CREATE TABLE `players_teams` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `team`
+-- Table structure for table `teams`
 --
 
-CREATE TABLE `team` (
+CREATE TABLE `teams` (
   `name` varchar(255) NOT NULL,
   `id` int(11) NOT NULL,
   `coordinates` varchar(255) NOT NULL,
@@ -371,9 +371,9 @@ ALTER TABLE `players_teams`
   ADD KEY `players_teams_fk1` (`team_id`);
 
 --
--- Indexes for table `team`
+-- Indexes for table `teams`
 --
-ALTER TABLE `team`
+ALTER TABLE `teams`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -406,9 +406,9 @@ ALTER TABLE `players`
 ALTER TABLE `players_teams`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `team`
+-- AUTO_INCREMENT for table `teams`
 --
-ALTER TABLE `team`
+ALTER TABLE `teams`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
@@ -418,7 +418,7 @@ ALTER TABLE `team`
 -- Constraints for table `inventory`
 --
 ALTER TABLE `inventory`
-  ADD CONSTRAINT `inventory_fk0` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `inventory_fk0` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `inventory_fk1` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`) ON DELETE CASCADE;
 
 --
@@ -432,7 +432,7 @@ ALTER TABLE `players`
 --
 ALTER TABLE `players_teams`
   ADD CONSTRAINT `players_teams_fk0` FOREIGN KEY (`player_id`) REFERENCES `players` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `players_teams_fk1` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `players_teams_fk1` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
