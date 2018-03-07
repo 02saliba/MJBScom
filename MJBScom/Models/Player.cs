@@ -346,6 +346,22 @@ namespace MJBScom.Models
           if (_yPos < 0) { _yPos = 0; }
           if (_xPos >= 21) { _xPos = 20; }
           if (_yPos >= 11) { _yPos = 10; }
+          Console.WriteLine("X coord: " + this._xPos);
+          Console.WriteLine("Y coord: " + this._yPos);
+          Console.WriteLine("");
+        }
+
+        public int fightDetect()
+        {
+          List<Player> allEnemies = Player.GetEnemies();
+          foreach (Player enemy in allEnemies)
+            {
+              if ((Math.Abs(this._xPos - enemy._xPos) < 2) && (Math.Abs(this._yPos - enemy._yPos) < 2))
+              {
+                return enemy._id;
+              }
+            }
+          return -1;
         }
     }
 }
