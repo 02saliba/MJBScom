@@ -14,6 +14,9 @@ SET time_zone = "+00:00";
 -- Database: `mjbs`
 --
 
+CREATE DATABASE mjbs;
+USE mjbs;
+
 -- --------------------------------------------------------
 
 --
