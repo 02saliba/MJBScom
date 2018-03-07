@@ -3,42 +3,55 @@
   var user = Model["user"];
   var enemy = Model["enemy"];
 }
-
-<div class="col-md-6">
-  <h3>@user.GetName()</h3>
-  <div>
-    <p>HP: @user.GetHPRemaining() / @user.GetHPTotal()</p>
-    <p>Luck: @user.GetLuck()</p>
-    <p>Agility: @user.GetAgility()</p>
-    <p>Intelligence: @user.GetIntelligence()</p>
-    <p>Strength: @user.GetStrength()</p>
-  </div>
-  <a href='/battle/@user.GetId()/attack/@enemy.GetId()'><button type="button" name="button">Attack</button></a>
-</div>
-
-<div class="col-md-6">
-  <h3>@enemy.GetName()</h3>
-  <div>
-    <p>HP: @enemy.GetHPRemaining() / @enemy.GetHPTotal()</p>
-    <p>Luck: @enemy.GetLuck()</p>
-    <p>Agility: @enemy.GetAgility()</p>
-    <p>Intelligence: @enemy.GetIntelligence()</p>
-    <p>Strength: @enemy.GetStrength()</p>
+<div class="well">
+  <div class="row">
+    <div class="col-md-6"></div>
+    <div class="col-md-3"><img src="~/img/enemydetail.png" class="playerImage"></div>
+    <div class="col-md-3">
+      <h3>@enemy.GetName()</h3>
+      <div>
+        <p>HP: @enemy.GetHPRemaining() / @enemy.GetHPTotal()</p>
+        <p>Luck: @enemy.GetLuck()</p>
+        <p>Agility: @enemy.GetAgility()</p>
+        <p>Intelligence: @enemy.GetIntelligence()</p>
+        <p>Strength: @enemy.GetStrength()</p>
+      </div>
+    </div>
   </div>
 </div>
 
+<div class="well">
+  <div class="row">
+    <div class="col-md-3">
+      <h3>@user.GetName()</h3>
+      <div>
+        <p>HP: @user.GetHPRemaining() / @user.GetHPTotal()</p>
+        <p>Luck: @user.GetLuck()</p>
+        <p>Agility: @user.GetAgility()</p>
+        <p>Intelligence: @user.GetIntelligence()</p>
+        <p>Strength: @user.GetStrength()</p>
+      </div>
+      <a href='/battle/@user.GetId()/attack/@enemy.GetId()'><button type="button" name="button">Attack</button></a>
+    </div>
+    <div class="col-md-3"><img src="~/img/playerdetail.png" class="playerImage"></div>
+    <div class="col-md-6"></div>
+  </div>
+</div>
+<br>
+<div class="well">
+  <div class="row">
+    <div id="battleText" class="col-md-12">
+      @{
+        if (Model["userAttacked"])
+        {
+          <p>You did @Model["userDamage"] damage to @enemy.GetName()!!!!!!</p>
+        }
 
-<div class="col-md-12">
-  @{
-    if (Model["userAttacked"])
-    {
-      <p>You did @Model["userDamage"] damage to @enemy.GetName()!!!!!!</p>
-    }
-
-    if (Model["enemyAttacked"])
-    {
-      <p>@enemy.GetName() did @Model["enemyDamage"] damage to you!!!!</p>
-    }
-  }
-
+        if (Model["enemyAttacked"])
+        {
+          <p>@enemy.GetName() did @Model["enemyDamage"] damage to you!!!!</p>
+        }
+      }
+    </div>
+  </div>
 </div>

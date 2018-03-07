@@ -2,6 +2,8 @@ body {
   font-family: 'Press Start 2P', cursive;
   background-color: lightgray;
   text-align: center;
+  background-image: url("https://apod.nasa.gov/apod/image/1803/NGC1999_Hanson_3847.jpg");
+  color: black;
 }
 
 #court {
@@ -34,4 +36,20 @@ div {
 .player {
   width: auto;
   height: 1.5em;
+}
+
+.well {
+  background-image: url('../img/court.jpg');
+  z-index: 100;
+}
+
+
+#battleText {
+  font-size: 2vw;
+  z-index: 100;
+}
+
+.playerImage {
+  width: 320px;
+  height: 240px;
 }
