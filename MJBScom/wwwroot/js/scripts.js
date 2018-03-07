@@ -1,3 +1,32 @@
+function printSentence(sentence) {
+  var charIndex = 0;
+  var id = setInterval(printChar, 50);
+  
+  function printChar() {
+    if (charIndex >= sentence.length) {
+        clearInterval(id);
+    } else {
+        console.log(sentence[charIndex]); 
+        charIndex++;
+    }
+  }
+}
+
+function typewriter(sentences) {  
+  var charSpeed = 50;
+  var sentenceSpeed = 1000;
+  var time = 0;
+  
+  for (var i = 0; i < sentences.length; i++)
+  {
+    console.log(time);
+    setTimeout(printSentence, time, sentences[i]);
+    var time = sentences[i].length * charSpeed + sentenceSpeed;
+  }
+}
+
+
+
 function countFrom20(agility, intelligence, strength, luck) {
   var valid = true;
   var count = 20;
@@ -22,6 +51,7 @@ function countFrom20(agility, intelligence, strength, luck) {
 $(document).ready(function(){
 
   console.log("Javascript loaded");
+  typewriter(["this is a sentence", "this is another sentence"]);
 
 
   $(".stat").change(function() {
@@ -66,3 +96,5 @@ $(document).ready(function(){
   });
 
 });
+
+
