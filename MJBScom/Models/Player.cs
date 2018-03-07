@@ -360,5 +360,19 @@ namespace MJBScom.Models
             }
           return -1;
         }
+
+        public static string AttackDunk(Player attacker, Player target) {
+          Random rnd = new Random();
+          int chance = rnd.Next(1, attacker.GetLuck());
+          if (attack.GetLuck() > chance) {
+            target._hpRemaining -= attacker._strength*.5;
+            return "whatever string cam wants"
+          }
+          else
+          {
+            return "you fuked up";
+          }
+
+        }
     }
 }
