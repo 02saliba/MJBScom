@@ -79,13 +79,7 @@ $(document).ready(function(){
 
   $(window).on('keydown', function (e) {
     if (e.keyCode >= 37 && e.keyCode <= 40) {
-      var xmlHttp = new XMLHttpRequest();
-      xmlHttp.onreadystatechange = function() { 
-          if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-              location.reload();
-      }
-      xmlHttp.open("GET", "/court/Model[0].GetId()/" + e.keyCode, true); // true for asynchronous 
-      xmlHttp.send(null);
+      window.location.pathname = "/court/Model[0].GetId()/" + e.keyCode, true;
     }
   });
 });

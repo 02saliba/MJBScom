@@ -31,13 +31,14 @@ namespace MJBScom.Controllers
         enemy.Move(r.Next(4) + 37);
         enemy.Update();
       }
-      if (activePlayer.fightDetect() != -1)
+      int enemyInRange = activePlayer.fightDetect();
+      if (enemyInRange != -1)
       {
-        int getTargetId = activePlayer.fightDetect();
+        Console.WriteLine(enemyInRange);
         int getAttackerId = activePlayer.GetId();
         RouteValueDictionary model = new RouteValueDictionary{};
         model.Add("attackerId", getAttackerId);
-        model.Add("targetId", getTargetId);
+        model.Add("targetId", enemyInRange);
         return RedirectToAction("Index", "Battle", model);
       }
       else
