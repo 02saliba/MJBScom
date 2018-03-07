@@ -27,14 +27,13 @@ namespace MJBScom.Controllers
 
       foreach(Player enemy in Player.GetEnemies())
       {
-        enemy.Move(r.Next(4) + 37);
-        enemy.Move(r.Next(4) + 37);
-        enemy.Update();
+        // enemy.Move(r.Next(4) + 37);
+        // enemy.Move(r.Next(4) + 37);
+        // enemy.Update();
       }
       int enemyInRange = activePlayer.fightDetect();
       if (enemyInRange != -1)
       {
-        Console.WriteLine(enemyInRange);
         int getAttackerId = activePlayer.GetId();
         RouteValueDictionary model = new RouteValueDictionary{};
         model.Add("attackerId", getAttackerId);
