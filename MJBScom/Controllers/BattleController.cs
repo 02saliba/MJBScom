@@ -11,6 +11,7 @@ namespace MJBScom.Controllers
     [HttpGet("/battle/{attackerId}/{targetId}")]
     public ActionResult Index(int attackerId, int targetId)
     {
+      Console.WriteLine("I am in the battle controller");
       Player attacker = Player.Find(attackerId);
       Player target = Player.Find(targetId);
 

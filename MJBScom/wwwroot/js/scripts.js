@@ -46,13 +46,14 @@ function countFrom20(agility, intelligence, strength, luck) {
   return valid;
 }
 
+function httpGetAsync(theUrl)
+{
+    
+}
+
 
 
 $(document).ready(function(){
-
-  console.log("Javascript loaded");
-  //typewriter(["this is a sentence", "this is another sentence"]);
-
 
   $(".stat").change(function() {
     var agility = $("#agility").val();
@@ -77,22 +78,8 @@ $(document).ready(function(){
   });
 
   $(window).on('keydown', function (e) {
-    if (e.keyCode === 37) //left
-    {
-      window.location.pathname = "/court/Model[0].GetId()/37"
-    }
-    else if (e.keyCode == 38) //up
-    {
-      window.location.pathname = "/court/Model[0].GetId()/38"
-    }
-    else if (e.keyCode == 39) //right
-    {
-      window.location.pathname = "/court/Model[0].GetId()/39";
-    }
-    else if (e.keyCode === 40) //down
-    {
-      window.location.pathname = "/court/Model[0].GetId()/40"
+    if (e.keyCode >= 37 && e.keyCode <= 40) {
+      window.location.pathname = "/court/Model[0].GetId()/" + e.keyCode, true;
     }
   });
-
 });
