@@ -8,6 +8,7 @@ namespace MJBScom.Controllers
 {
   public class CourtController : Controller
   {
+    private static Random r = new Random();
 
     [HttpGet("/court")]
     public ActionResult Index()
@@ -23,6 +24,12 @@ namespace MJBScom.Controllers
       Player activePlayer = Player.Find(1);
       activePlayer.Move(dir);
       activePlayer.Update();
+
+      foreach(Player enemy in Player.GetEnemies())
+      {
+        enemy.Move(r.Next(2) * 2 + 38);
+        enemy.Update();
+      }
       if (activePlayer.fightDetect() != -1)
       {
         int getTargetId = activePlayer.fightDetect();

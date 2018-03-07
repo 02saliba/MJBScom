@@ -329,9 +329,9 @@ namespace MJBScom.Models
           else if (dir == 40) { y += 1; }
 
           bool canMove = true;
-          foreach (Player enemy in Player.GetEnemies())
+          foreach (Player other in Player.GetAll())
           {
-            if (enemy._xPos == x && enemy._yPos == y)
+            if (other._xPos == x && other._yPos == y)
             {
               canMove = false;
             }
