@@ -214,6 +214,26 @@ namespace MJBScom.Tests
            Assert.AreEqual(foundPlayer, controlPlayer);
         }
 
+        [TestMethod]
+        public void GetEnemies_GetPlayersAllegience0_List()
+        {
+          //arrange
+          Player enemy1 = new Player("Joe", 20, 20);
+          Player enemy2 = new Player("Frank", 20, 20);
+          Player good = new Player("Cam", 20, 20);
+          enemy1.Save();
+          enemy2.Save();
+          good.SetAllegience(true);
+          good.Save();
+
+          //act
+          List<Player> controlList = new List<Player>{enemy1, enemy2};
+          List<Player> result = Player.GetEnemies();
+
+          //assert
+          CollectionAssert.AreEqual(controlList, result);
+        }
+
 
 
     }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MJBScom.Models;
 using System.Collections.Generic;
+using System;
 
 namespace MJBScom.Controllers
 {
@@ -10,10 +11,18 @@ namespace MJBScom.Controllers
     [HttpGet("/court")]
     public ActionResult Index()
     {
-      //create and place enemy
       List<Player> allPlayers = Player.GetAll();
 
       return View("Index", allPlayers);
+    }
+
+    [HttpGet("/court/{playerId}/{dir}")]
+    public ActionResult Move(int dir)
+    {
+      Player activePlayer = Player.Find(1);
+      activePlayer.Move(dir);
+      activePlayer.Update();
+      return RedirectToAction("Index");
     }
   }
 }
