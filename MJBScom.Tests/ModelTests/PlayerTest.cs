@@ -234,7 +234,26 @@ namespace MJBScom.Tests
           CollectionAssert.AreEqual(controlList, result);
         }
 
+        [TestMethod]
+        public void Player_TestFightDetect_Int()
+        {
+          Player controlPlayer = new Player("Cameron", 20, 20);
+          controlPlayer.SetX(1);
+          controlPlayer.SetY(2);
+          controlPlayer.SetAllegience(true);
+          controlPlayer.Save();
 
+          Player enemy1 = new Player("Joe", 20, 20);
+          enemy1.SetX(2);
+          enemy1.SetY(2);
+          enemy1.Save();
+
+
+          int result = controlPlayer.fightDetect();
+
+          Assert.AreEqual(result, enemy1.GetId());
+
+        }
 
     }
 }
