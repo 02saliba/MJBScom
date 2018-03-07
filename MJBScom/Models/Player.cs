@@ -281,5 +281,71 @@ namespace MJBScom.Models
               conn.Dispose();
             return foundPlayer;
         }
+
+        public static List<Player> GetEnemies()
+        {
+          List<Player> allEnemies = new List<Player>{};
+          MySqlConnection conn = DB.Connection();
+          conn.Open();
+          MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+          cmd.CommandText = @"SELECT * FROM players WHERE allegience = 0;";
+          MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+          while(rdr.Read())
+          {
+              int playerId = rdr.GetInt32(0);
+              string playerName = rdr.GetString(1);
+              int playerHPTotal = rdr.GetInt32(2);
+              int playerHPRemaining = rdr.GetInt32(3);
+              int playerAgility = rdr.GetInt32(5);
+              int playerIntelligence = rdr.GetInt32(6);
+              int playerStrength = rdr.GetInt32(7);
+              int playerLuck = rdr.GetInt32(8);
+              bool playerAllegience = rdr.GetBoolean(9);
+              int playerXPos = rdr.GetInt32(10);
+              int playerYPos = rdr.GetInt32(11);
+              Player newPlayer = new Player(playerName, playerHPTotal, playerHPRemaining, playerAgility, playerIntelligence, playerStrength, playerLuck, playerId);
+              newPlayer.SetAllegience(playerAllegience);
+              newPlayer.SetX(playerXPos);
+              newPlayer.SetY(playerYPos);
+
+              allEnemies.Add(newPlayer);
+          }
+          conn.Close();
+          if (conn != null)
+          {
+            conn.Dispose();
+          }
+          return allEnemies;
+        }
+
+        public void Move(int dir)
+        {
+          int x = _xPos;
+          int y = _yPos;
+
+          if (dir == 37) { x -= 1; }
+          else if (dir == 38) { y -= 1; }
+          else if (dir == 39) { x += 1; }
+          else if (dir == 40) { y += 1; }
+
+          bool canMove = true;
+          foreach (Player enemy in Player.GetEnemies())
+          {
+            if (enemy._xPos == x && enemy._yPos == y)
+            {
+              canMove = false;
+            }
+          }
+          if (canMove)
+          {
+            _xPos = x;
+            _yPos = y;
+          }
+
+          if (_xPos < 0) { _xPos = 0; }
+          if (_yPos < 0) { _yPos = 0; }
+          if (_xPos >= 21) { _xPos = 20; }
+          if (_yPos >= 11) { _yPos = 10; }
+        }
     }
 }
