@@ -26,7 +26,8 @@ namespace MJBScom.Controllers
       
       foreach(Player enemy in Player.GetEnemies())
       {
-        enemy.Move(r.Next(2) * 2 + 38);
+        enemy.Move(r.Next(4) + 37);
+        enemy.Move(r.Next(4) + 37);
         enemy.Update();
       }
       
