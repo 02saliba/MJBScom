@@ -22,6 +22,8 @@ namespace MJBScom.Controllers
       List<string> battleMsg = new List<string>();
       model.Add("msg", battleMsg);
 
+      battleMsg.Add(target.GetName() + ": " + BattleText.Find(target.GetFlavorId()).GetStart());
+
       if (target.GetAgility() > attacker.GetAgility())
       {
         battleMsg.Add(Player.RandomAttack(target, attacker));
@@ -65,6 +67,7 @@ namespace MJBScom.Controllers
             return View("Win");
         }
 
+        battleMsg.Add(target.GetName() + ": " + BattleText.Find(target.GetFlavorId()).GetEnd());
         target.Delete();
         return View("EndBattle", model);
       }

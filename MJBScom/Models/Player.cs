@@ -127,20 +127,20 @@ namespace MJBScom.Models
                 conn.Dispose();
             }
         }
-        
-        
-        
+
+
+
         public void SetFlavorId(int flavorId)
         {
           MySqlConnection conn = DB.Connection();
             conn.Open();
             var cmd = conn.CreateCommand() as MySqlCommand;
             cmd.CommandText = @"
-              UPDATE players SET 
+              UPDATE players SET
               flavor_id = @flavor
               WHERE id = @id;
             ";
-            
+
             cmd.Parameters.AddWithValue("@id", _id);
             cmd.Parameters.AddWithValue("@flavor", flavorId);
 
@@ -151,6 +151,29 @@ namespace MJBScom.Models
             {
                 conn.Dispose();
             }
+        }
+
+        public int GetFlavorId()
+        {
+          MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT flavor_id from players WHERE id = @id;";
+
+            cmd.Parameters.AddWithValue("@id", _id);
+
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            int flavorId;
+            rdr.Read();
+            flavorId = rdr.GetInt32(0);
+
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return flavorId;
         }
 
         public static List<Player> GetAll()
@@ -402,7 +425,7 @@ namespace MJBScom.Models
           int newHp = attacker._hpRemaining + attacker._intelligence;
           if (newHp > attacker._hpTotal)
             newHp = attacker._hpTotal;
-          
+
           int hpChange = newHp - attacker._hpRemaining;
           attacker._hpRemaining = newHp;
           attacker.Update();
@@ -428,8 +451,8 @@ namespace MJBScom.Models
             return attackerName + " tried to dunk on " + targetName + " but tripped - bad luck!!";
           }
         }
-        
-        public static string AttackZoneDefense(Player attacker, Player target) 
+
+        public static string AttackZoneDefense(Player attacker, Player target)
         {
           string attackerName = attacker._allegience ? "Your" : attacker._name;
           string targetName = target._allegience ? "you" : target._name;
@@ -454,12 +477,12 @@ namespace MJBScom.Models
             return targetName + "'s strength is already low you MONSTER!!!";
           }
         }
-        
+
         public static string RandomAttack(Player attacker, Player target)
         {
           Random rnd = new Random();
           int attack = rnd.Next(3);
-          
+
           switch(attack)
           {
             case 0: return AttackShoot(attacker, target);

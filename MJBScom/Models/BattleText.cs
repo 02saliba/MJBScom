@@ -86,7 +86,7 @@ namespace MJBScom.Models
         conn.Dispose();
       }
     }
-    
+
      public void Save()
     {
       MySqlConnection conn = DB.Connection();
@@ -107,7 +107,7 @@ namespace MJBScom.Models
           conn.Dispose();
       }
     }
-    
+
     public static List<int> GetIds()
     {
       List<int> allIds = new List<int> {};
@@ -126,6 +126,37 @@ namespace MJBScom.Models
       conn.Dispose();
       }
       return allIds;
+    }
+
+    public static BattleText Find(int findId)
+    {
+        MySqlConnection conn = DB.Connection();
+        conn.Open();
+        var cmd = conn.CreateCommand() as MySqlCommand;
+        cmd.CommandText = @"SELECT * from `battle_text` WHERE id = @ThisId;";
+        cmd.Parameters.AddWithValue("@ThisId", findId);
+
+        int textId = 0;
+        string startText = "";
+        string midText = "";
+        string endText = "";
+
+        var rdr = cmd.ExecuteReader() as MySqlDataReader;
+        if (rdr.Read())
+        {
+            textId = rdr.GetInt32(0);
+            startText = rdr.GetString(1);
+            midText = rdr.GetString(2);
+            endText = rdr.GetString(3);
+
+        }
+        BattleText foundText = new BattleText(startText, midText, endText, textId);
+
+
+        conn.Close();
+        if (conn != null)
+          conn.Dispose();
+        return foundText;
     }
   }
 }
