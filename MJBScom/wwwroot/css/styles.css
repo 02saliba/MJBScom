@@ -1,3 +1,4 @@
+
 body {
   font-family: 'Press Start 2P', cursive;
   background-color: lightgray;
@@ -7,7 +8,7 @@ body {
 }
 
 #court {
-  background-image: url('../img/court.jpg');
+  background-image: url('../img/court.gif');
   padding: 0px;
   border: 0px;
   margin: 0px;
@@ -21,9 +22,6 @@ h1 {
   text-shadow: 0 0 2vw white;
 }
 
-div {
-  margin: 0px;
-}
 
 .fight-control {
   margin-top: 2px;
@@ -41,6 +39,20 @@ div {
   border-color: black;
   margin: -1px;
 }
+.carousel-caption {
+  overflow: none;
+}
+
+ .carousel-control{
+   margin-top: 32em;
+   margin-right: 3em;
+   background: none;
+}
+
+.carousel-control:hover{
+  background: none;
+}
+
 
 .buttony{
   background-image: url("../img/fightbg.gif");
@@ -57,9 +69,21 @@ div {
   text-shadow: 0 0 2vw black;
 }
 
+.buttony2 {
+  border: none;
+  background: none;
+  position: relative;
+  float: right;
+}
+
+.intro {
+  margin: 0 auto;
+  width: 600px;
+}
+
 .player {
   width: auto;
-  height: 1.5em;
+  height: 3em;
 }
 
 .well {
