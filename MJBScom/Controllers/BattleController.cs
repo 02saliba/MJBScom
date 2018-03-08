@@ -62,7 +62,7 @@ namespace MJBScom.Controllers
         if (Player.GetEnemies().Count == 1 && target.GetName() != "Michael Jordan")
         {
             target.Delete();
-            Player michaelJordan = new Player("Michael Jordan", 50, 50, 1, 1, 1, 1);
+            Player michaelJordan = new Player("Michael Jordan", 50, 50, 10, 10, 10, 10);
             michaelJordan.Save();
 
             Dictionary<string, object> mjmodel = new Dictionary<string, object>();
@@ -84,7 +84,7 @@ namespace MJBScom.Controllers
       if (attacker.GetHPRemaining() <= 0)
       {
         Player.DeleteAll();
-        return RedirectToAction("Index", "Home");
+        return View("Lose");
       }
 
 
