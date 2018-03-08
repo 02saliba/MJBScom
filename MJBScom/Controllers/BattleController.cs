@@ -11,24 +11,19 @@ namespace MJBScom.Controllers
     [HttpGet("/battle/{attackerId}/{targetId}")]
     public ActionResult Index(int attackerId, int targetId)
     {
-      Console.WriteLine("I am in the battle controller");
       Player attacker = Player.Find(attackerId);
       Player target = Player.Find(targetId);
 
       Dictionary<string, object> model = new Dictionary<string, object>();
       model.Add("user", attacker);
       model.Add("enemy", target);
+      
+      List<string> battleMsg = new List<string>();
+      model.Add("msg", battleMsg);
 
-      model.Add("userAttacked", false);
       if (target.GetAgility() > attacker.GetAgility())
       {
-        attacker.SetHPRemaining(attacker.GetHPRemaining() - target.GetStrength());
-        attacker.Update();
-        model.Add("enemyAttacked", true);
-        model.Add("enemyDamage", target.GetStrength());
-      }
-      else{
-        model.Add("enemyAttacked", false);
+        battleMsg.Add(Player.AttackShoot(target, attacker));
       }
 
       if (attacker.GetHPRemaining() <= 0)
@@ -40,8 +35,8 @@ namespace MJBScom.Controllers
 
     }
 
-    [HttpGet("/battle/{attackerId}/attack/{targetId}")]
-    public ActionResult Attack(int attackerId, int targetId)
+    [HttpGet("/battle/{attackerId}/attack/{targetId}/{attackMove}")]
+    public ActionResult Attack(int attackerId, int targetId, int attackMove)
     {
       Player attacker = Player.Find(attackerId);
       Player target = Player.Find(targetId);
@@ -49,14 +44,17 @@ namespace MJBScom.Controllers
       Dictionary<string, object> model = new Dictionary<string, object>();
       model.Add("user", attacker);
       model.Add("enemy", target);
-      model.Add("enemyDamage", target.GetStrength());
-      model.Add("userDamage", attacker.GetStrength());
+      
+      List<string> battleMsg = new List<string>();
+      model.Add("msg", battleMsg);
+      
+      string attackMsg = "";
+      if (attackMove == 0) attackMsg = Player.AttackShoot(attacker, target);
+      else if (attackMove == 1) attackMsg = Player.AttackTimeOut(attacker);
+      else if (attackMove == 0) attackMsg = Player.AttackShoot(attacker, target);
+      else if (attackMove == 0) attackMsg = Player.AttackShoot(attacker, target);
 
-      model.Add("userAttacked", true);
-      model.Add("enemyAttacked", true);
-
-      target.SetHPRemaining(target.GetHPRemaining() - attacker.GetStrength());
-      target.Update();
+      battleMsg.Add(attackMsg);
 
       if (target.GetHPRemaining() <= 0)
       {
@@ -69,8 +67,7 @@ namespace MJBScom.Controllers
         return RedirectToAction("Index", "Court");
       }
 
-      attacker.SetHPRemaining(attacker.GetHPRemaining() - target.GetStrength());
-      attacker.Update();
+      battleMsg.Add(Player.AttackShoot(target, attacker));
 
       if (attacker.GetHPRemaining() <= 0)
       {

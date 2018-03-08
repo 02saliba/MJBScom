@@ -1,12 +1,15 @@
-function printSentence(sentence) {
+function printSentence(sentence, element) {
+  var div = $('#msgbox');
   var charIndex = 0;
   var id = setInterval(printChar, 50);
+  var myText = '';
 
   function printChar() {
     if (charIndex >= sentence.length) {
         clearInterval(id);
     } else {
-        console.log(sentence[charIndex]);
+        myText += sentence[charIndex];
+        div.text(myText);
         charIndex++;
     }
   }
@@ -19,7 +22,6 @@ function typewriter(sentences) {
 
   for (var i = 0; i < sentences.length; i++)
   {
-    console.log(time);
     setTimeout(printSentence, time, sentences[i]);
     var time = sentences[i].length * charSpeed + sentenceSpeed;
   }

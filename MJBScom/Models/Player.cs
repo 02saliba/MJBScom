@@ -360,5 +360,26 @@ namespace MJBScom.Models
             }
           return -1;
         }
+        
+        public static string AttackShoot(Player attacker, Player target)
+        {
+          target._hpRemaining -= attacker._strength;
+          target.Update();
+          
+          string attackerName = attacker._allegience ? "You" : attacker._name;
+          string targetName = target._allegience ? "you" : target._name;
+          
+          return attackerName + " did " + attacker._strength + " damage to " + targetName;
+        }
+        
+        public static string AttackTimeOut(Player attacker)
+        {
+          attacker._hpRemaining += attacker._intelligence;
+          attacker.Update();
+          
+          string attackerName = attacker._allegience ? "You" : attacker._name;
+          
+          return attackerName + " took a timeout and healed " + attacker._intelligence + " hp ";
+        }
     }
 }

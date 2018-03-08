@@ -25,6 +25,11 @@ div {
   margin: 0px;
 }
 
+.fight-control {
+  margin-top: 2px;
+  display: inline-block;
+}
+
 .tile {
   font-size: 2em;
   text-align: center;
@@ -35,6 +40,21 @@ div {
   border-width: 1px;
   border-color: black;
   margin: -1px;
+}
+
+.buttony{
+  background-image: url("../img/fightbg.gif");
+  color: black;
+  font-size: 2vw;
+  display: flex;
+  padding: 0px;
+  border: 0px;
+  margin: 0px;
+}
+
+.buttony:hover {
+  color: red;
+  text-shadow: 0 0 2vw black;
 }
 
 .player {
@@ -63,4 +83,8 @@ a:hover {
 .playerImage {
   width: 320px;
   height: 240px;
+}
+
+.progress-bar-danger {
+  background-color: red;
 }

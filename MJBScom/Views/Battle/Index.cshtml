@@ -41,27 +41,35 @@
         <p>Intelligence: @user.GetIntelligence()</p>
         <p>Strength: @user.GetStrength()</p>
       </div>
-      <a href='/battle/@user.GetId()/attack/@enemy.GetId()'><button type="button" name="button">Attack</button></a>
     </div>
     <div class="col-md-3"><img src="~/img/playerdetail.png" class="playerImage"></div>
+    <div class="fight-control">
+                <a href='/battle/@user.GetId()/attack/@enemy.GetId()/0'><button type="button" class="buttony" name="button">Shoot</button></a>
+                <br>
+                <a href='/battle/@user.GetId()/attack/@enemy.GetId()/1'><button type="button" class="buttony" name="button">Timeout</button></a>
+                <br>
+                <a href='/battle/@user.GetId()/attack/@enemy.GetId()/2'><button type="button" class="buttony" name="button">other</button></a>
+                <br>
+                <a href='/battle/@user.GetId()/attack/@enemy.GetId()/3'><button type="button" class="buttony" name="button">other</button></a>
+    </div>
     <div class="col-md-6"></div>
   </div>
 </div>
 <br>
 <div class="well">
   <div class="row">
-    <div id="battleText" class="col-md-12">
-      @{
-        if (Model["userAttacked"])
-        {
-          <p>You did @Model["userDamage"] damage to @enemy.GetName()!!!!!!</p>
-        }
-
-        if (Model["enemyAttacked"])
-        {
-          <p>@enemy.GetName() did @Model["enemyDamage"] damage to you!!!!</p>
-        }
-      }
+    <div id="msgbox" class="col-md-12">
     </div>
   </div>
 </div>
+
+@{
+  <script>var msgs = [];</script>
+
+  foreach(string msg in Model["msg"])
+  {
+    <script>msgs.push('@msg');</script>
+  }
+
+  <script>typewriter(msgs, 'msgbox');</script>
+}
