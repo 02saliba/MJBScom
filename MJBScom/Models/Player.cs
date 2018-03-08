@@ -417,7 +417,7 @@ namespace MJBScom.Models
           string attackerName = attacker._allegience ? "You" : attacker._name;
           string targetName = target._allegience ? "you" : target._name;
 
-          return attackerName + " did " + attacker._strength + " damage to " + targetName;
+          return attackerName + " did " + attacker._strength + " damage to " + targetName + ".";
         }
 
         public static string AttackTimeOut(Player attacker)
@@ -432,7 +432,7 @@ namespace MJBScom.Models
 
           string attackerName = attacker._allegience ? "You" : attacker._name;
 
-          return attackerName + " took a timeout and healed " + hpChange + " hp ";
+          return attackerName + " took a timeout and healed " + hpChange + " hp.";
         }
 
         public static string AttackDunk(Player attacker, Player target) {
