@@ -2,7 +2,7 @@ body {
   font-family: 'Press Start 2P', cursive;
   background-color: lightgray;
   text-align: center;
-  background-image: url("https://apod.nasa.gov/apod/image/1803/NGC1999_Hanson_3847.jpg");
+  /*background-image: url("https://apod.nasa.gov/apod/image/1803/NGC1999_Hanson_3847.jpg");*/
   color: black;
 }
 
