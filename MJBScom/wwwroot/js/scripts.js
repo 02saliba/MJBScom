@@ -1,7 +1,7 @@
 function printSentence(sentence, element) {
   var div = $('#msgbox');
   var charIndex = 0;
-  var id = setInterval(printChar, 50);
+  var id = setInterval(printChar, 20);
   var myText = '';
 
   function printChar() {
@@ -21,7 +21,7 @@ $('#myCarousel').on('slide.bs.carousel', function () {
 
 
 function typewriter(sentences) {
-  var charSpeed = 50;
+  var charSpeed = 20;
   var sentenceSpeed = 1000;
   var time = 0;
 
@@ -49,7 +49,6 @@ function countFrom20(agility, intelligence, strength, luck) {
   else {
     valid = true;
   }
-  console.log(valid);
   return valid;
 }
 

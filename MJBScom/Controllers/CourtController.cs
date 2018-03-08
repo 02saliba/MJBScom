@@ -31,6 +31,7 @@ namespace MJBScom.Controllers
         // enemy.Move(r.Next(4) + 37);
         // enemy.Update();
       }
+
       int enemyInRange = activePlayer.fightDetect();
       if (enemyInRange != -1)
       {
