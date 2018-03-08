@@ -409,6 +409,7 @@ namespace MJBScom.Models
             if (attacker.GetAgility() > chance)
             {
               target._strength -= 1;
+              target.Update();
               return "DEFENSE!! " + targetName + "'s strength was lowered by 1.";
             }
             else

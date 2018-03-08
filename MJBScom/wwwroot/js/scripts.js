@@ -48,11 +48,6 @@ function countFrom20(agility, intelligence, strength, luck) {
   return valid;
 }
 
-function httpGetAsync(theUrl)
-{
-    
-}
-
 
 
 $(document).ready(function(){
@@ -79,9 +74,11 @@ $(document).ready(function(){
 
   });
 
-  $(window).on('keydown', function (e) {
-    if (e.keyCode >= 37 && e.keyCode <= 40) {
-      window.location.pathname = "/court/Model[0].GetId()/" + e.keyCode, true;
-    }
-  });
+if (window.location.pathname == '/court') {
+    $(window).on('keydown', function (e) {
+      if (e.keyCode >= 37 && e.keyCode <= 40) {
+        window.location.pathname = "/court/Model[0].GetId()/" + e.keyCode, true;
+      }
+    });
+  }
 });
