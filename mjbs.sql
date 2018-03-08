@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 08, 2018 at 05:18 PM
+-- Generation Time: Mar 08, 2018 at 06:54 PM
 -- Server version: 5.6.34-log
 -- PHP Version: 7.1.5
 
@@ -33,9 +33,8 @@ USE `mjbs`;
 CREATE TABLE `battle_text` (
   `id` int(11) NOT NULL,
   `start_battle` varchar(255) NOT NULL,
-  `end_battle` varchar(255) NOT NULL,
-  `weakened_response` varchar(255) NOT NULL,
-  `post_response` varchar(255) NOT NULL
+  `mid_battle` varchar(255) NOT NULL,
+  `end_battle` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -84,12 +83,12 @@ ALTER TABLE `players`
 -- AUTO_INCREMENT for table `battle_text`
 --
 ALTER TABLE `battle_text`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `players`
 --
 ALTER TABLE `players`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Constraints for dumped tables
 --
