@@ -15,6 +15,11 @@ function printSentence(sentence, element) {
   }
 }
 
+$('#myCarousel').on('slide.bs.carousel', function () {
+  window.location.pathname = "/";
+});
+
+
 function typewriter(sentences) {
   var charSpeed = 50;
   var sentenceSpeed = 1000;
@@ -50,7 +55,9 @@ function countFrom20(agility, intelligence, strength, luck) {
 
 
 
+
 $(document).ready(function(){
+
 
   $(".stat").change(function() {
     var agility = $("#agility").val();

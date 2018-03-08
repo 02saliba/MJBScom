@@ -7,6 +7,12 @@ namespace MJBScom.Controllers
   {
 
     [HttpGet("/")]
+    public ActionResult Intro()
+    {
+      return View("Intro");
+    }
+
+    [HttpGet("/new-game")]
     public ActionResult Index()
     {
       return View("Index");
