@@ -59,24 +59,14 @@ namespace MJBScom.Controllers
 
       if (target.GetHPRemaining() <= 0)
       {
-        if (Player.GetEnemies().Count == 1 && target.GetName() != "Michael Jordan")
-        {
-            target.Delete();
-            Player michaelJordan = new Player("Michael Jordan", 50, 50);
-            michaelJordan.Save();
-
-            Dictionary<string, object> mjmodel = new Dictionary<string, object>();
-            mjmodel.Add("user", attacker);
-            mjmodel.Add("enemy", michaelJordan);
-            return View("Final", mjmodel);
-        }
-        else if (Player.GetEnemies().Count == 1 && target.GetName() == "Michael Jordan")
+        if (Player.GetEnemies().Count == 1 && target.GetName() == "Michael Jordan")
         {
             target.Delete();
             return View("Win");
         }
+
         target.Delete();
-        return RedirectToAction("Index", "Court");
+        return View("EndBattle", model);
       }
 
       battleMsg.Add(Player.RandomAttack(target, attacker));
@@ -87,9 +77,31 @@ namespace MJBScom.Controllers
         return View("Lose");
       }
 
-
-
       return View("Index", model);
+    }
+
+    [HttpGet("/battle/stat/{id}/{statId}")]
+    public ActionResult UpdateStat(int id, int statId)
+    {
+      Player foundPlayer = Player.Find(id);
+      if (statId == 0) foundPlayer.SetLuck(foundPlayer.GetLuck() + 1);
+      else if (statId == 1) foundPlayer.SetAgility(foundPlayer.GetAgility() + 1);
+      else if (statId == 2) foundPlayer.SetIntelligence(foundPlayer.GetIntelligence() + 1);
+      else if (statId == 3) foundPlayer.SetStrength(foundPlayer.GetStrength() + 1);
+      foundPlayer.Update();
+
+      if (Player.GetEnemies().Count == 0)
+      {
+          Player michaelJordan = new Player("Michael Jordan", 50, 50);
+          michaelJordan.Save();
+
+          Dictionary<string, object> mjmodel = new Dictionary<string, object>();
+          mjmodel.Add("user", foundPlayer);
+          mjmodel.Add("enemy", michaelJordan);
+          return View("Final", mjmodel);
+      }
+
+      return RedirectToAction("Index", "Court");
     }
   }
 }
