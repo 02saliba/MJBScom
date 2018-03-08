@@ -103,7 +103,7 @@ namespace MJBScom.Controllers
 
       if (Player.GetEnemies().Count == 0)
       {
-          Player michaelJordan = new Player("Michael Jordan", 50, 50);
+          Player michaelJordan = new Player("Michael Jordan", 50, 50, 8, 8, 8, 8);
           michaelJordan.Save();
 
           BattleText t1 = new BattleText(
