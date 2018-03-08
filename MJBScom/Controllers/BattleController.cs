@@ -51,6 +51,9 @@ namespace MJBScom.Controllers
       List<string> battleMsg = new List<string>();
       model.Add("msg", battleMsg);
 
+      int halfHealth = target.GetHPTotal() / 2;
+      int currentHealth = target.GetHPRemaining();
+
       string attackMsg = "";
       if (attackMove == 0) attackMsg = Player.AttackShoot(attacker, target);
       else if (attackMove == 1) attackMsg = Player.AttackTimeOut(attacker);
@@ -70,6 +73,10 @@ namespace MJBScom.Controllers
         battleMsg.Add(target.GetName() + ": " + BattleText.Find(target.GetFlavorId()).GetEnd());
         target.Delete();
         return View("EndBattle", model);
+      }
+      else if (currentHealth > halfHealth && target.GetHPRemaining() <= halfHealth)
+      {
+        battleMsg.Add(target.GetName() + ": " + BattleText.Find(target.GetFlavorId()).GetMid());
       }
 
       battleMsg.Add(Player.RandomAttack(target, attacker));
@@ -97,6 +104,15 @@ namespace MJBScom.Controllers
       {
           Player michaelJordan = new Player("Michael Jordan", 50, 50);
           michaelJordan.Save();
+
+          BattleText t1 = new BattleText(
+            "I see you have destroyed my goblins. However you will never defeat me!!!!",
+            "Your skull will make a superb addition to my collection",
+            "Man I really snapped. You did good buddy!!"
+          );
+          t1.Save();
+
+          michaelJordan.SetFlavorId(t1.GetId());
 
           Dictionary<string, object> mjmodel = new Dictionary<string, object>();
           mjmodel.Add("user", foundPlayer);
