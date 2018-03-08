@@ -17,6 +17,11 @@ input {
 button {
   color: black;
 }
+
+/*.lastslide > .carousel-control{
+  visibility: hidden;
+}*/
+
 #court {
   background-image: url('../img/court.gif');
   padding: 0px;
@@ -65,8 +70,8 @@ h1 {
   background: none;
 }
 
-#white {
-  color: white;
+.white {
+  color: white
 }
 
 
