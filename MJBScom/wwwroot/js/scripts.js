@@ -44,7 +44,6 @@ function countFrom20(agility, intelligence, strength, luck) {
   else {
     valid = true;
   }
-  console.log(valid);
   return valid;
 }
 
