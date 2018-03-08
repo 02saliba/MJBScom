@@ -64,10 +64,11 @@ namespace MJBScom.Controllers
             target.Delete();
             Player michaelJordan = new Player("Michael Jordan", 50, 50, 1, 1, 1, 1);
             michaelJordan.Save();
-            RouteValueDictionary mjmodel = new RouteValueDictionary{};
-            mjmodel.Add("attackerId", attackerId);
-            mjmodel.Add("targetId", michaelJordan.GetId());
-            return RedirectToAction("Index", mjmodel);
+
+            Dictionary<string, object> mjmodel = new Dictionary<string, object>();
+            mjmodel.Add("user", attacker);
+            mjmodel.Add("enemy", michaelJordan);
+            return View("Final", mjmodel);
         }
         else if (Player.GetEnemies().Count == 1 && target.GetName() == "Michael Jordan")
         {
