@@ -127,6 +127,31 @@ namespace MJBScom.Models
                 conn.Dispose();
             }
         }
+        
+        
+        
+        public void SetFlavorId(int flavorId)
+        {
+          MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"
+              UPDATE players SET 
+              flavor_id = @flavor
+              WHERE id = @id;
+            ";
+            
+            cmd.Parameters.AddWithValue("@id", _id);
+            cmd.Parameters.AddWithValue("@flavor", flavorId);
+
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
 
         public static List<Player> GetAll()
         {
@@ -374,12 +399,17 @@ namespace MJBScom.Models
 
         public static string AttackTimeOut(Player attacker)
         {
-          attacker._hpRemaining += attacker._intelligence;
+          int newHp = attacker._hpRemaining + attacker._intelligence;
+          if (newHp > attacker._hpTotal)
+            newHp = attacker._hpTotal;
+          
+          int hpChange = newHp - attacker._hpRemaining;
+          attacker._hpRemaining = newHp;
           attacker.Update();
 
           string attackerName = attacker._allegience ? "You" : attacker._name;
 
-          return attackerName + " took a timeout and healed " + attacker._intelligence + " hp ";
+          return attackerName + " took a timeout and healed " + hpChange + " hp ";
         }
 
         public static string AttackDunk(Player attacker, Player target) {
@@ -387,8 +417,8 @@ namespace MJBScom.Models
           string targetName = target._allegience ? "you" : target._name;
 
           Random rnd = new Random();
-          int chance = rnd.Next(1, attacker.GetLuck());
-          if (attacker.GetLuck() > chance) {
+          int chance = rnd.Next(0, attacker._luck + 5);
+          if (chance < attacker._luck) {
             target._hpRemaining -= attacker._strength + attacker._strength/2;
             target.Update();
             return attackerName + " DUNKED on " + targetName + " and caused " + (attacker._strength + attacker._strength/2) + " damage!!!";
@@ -398,15 +428,17 @@ namespace MJBScom.Models
             return attackerName + " tried to dunk on " + targetName + " but tripped - bad luck!!";
           }
         }
-        public static string AttackZoneDefense(Player attacker, Player target) {
+        
+        public static string AttackZoneDefense(Player attacker, Player target) 
+        {
           string attackerName = attacker._allegience ? "Your" : attacker._name;
           string targetName = target._allegience ? "you" : target._name;
 
           if (target._strength > 1)
           {
             Random rnd = new Random();
-            int chance = rnd.Next(1, 11);
-            if (attacker.GetAgility() > chance)
+            int chance = rnd.Next(0, attacker._agility + 5);
+            if (chance < attacker._agility)
             {
               target._strength -= 1;
               target.Update();
@@ -421,8 +453,20 @@ namespace MJBScom.Models
           {
             return targetName + "'s strength is already low you MONSTER!!!";
           }
-
-
+        }
+        
+        public static string RandomAttack(Player attacker, Player target)
+        {
+          Random rnd = new Random();
+          int attack = rnd.Next(3);
+          
+          switch(attack)
+          {
+            case 0: return AttackShoot(attacker, target);
+            case 1: return AttackTimeOut(attacker);
+            case 2: return AttackDunk(attacker, target);
           }
+          return "Something Terrible Happened";
+        }
     }
 }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MJBScom.Models;
 using System;
+using System.Collections.Generic;
 
 namespace MJBScom.Controllers
 {
@@ -55,6 +56,19 @@ namespace MJBScom.Controllers
       enemy1.Save();
       enemy2.Save();
       enemy3.Save();
+      
+      BattleText t1 = new BattleText(
+        "This is gonna be a SLAM DUNK!",
+        "Im just gettin warmed up!",
+        "Im sorry Michael. Ive let you down..."
+      );
+      t1.Save();
+      
+      Random rnd = new Random();
+      List<int> texts = BattleText.GetIds();
+      enemy1.SetFlavorId(texts[rnd.Next(texts.Count - 1)]);
+      enemy2.SetFlavorId(texts[rnd.Next(texts.Count - 1)]);
+      enemy3.SetFlavorId(texts[rnd.Next(texts.Count - 1)]);
 
       return RedirectToAction("Index", "Court");
     }

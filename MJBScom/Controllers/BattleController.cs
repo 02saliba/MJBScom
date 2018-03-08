@@ -24,7 +24,7 @@ namespace MJBScom.Controllers
 
       if (target.GetAgility() > attacker.GetAgility())
       {
-        battleMsg.Add(Player.AttackShoot(target, attacker));
+        battleMsg.Add(Player.RandomAttack(target, attacker));
       }
 
       if (attacker.GetHPRemaining() <= 0)
@@ -79,7 +79,7 @@ namespace MJBScom.Controllers
         return RedirectToAction("Index", "Court");
       }
 
-      battleMsg.Add(Player.AttackShoot(target, attacker));
+      battleMsg.Add(Player.RandomAttack(target, attacker));
 
       if (attacker.GetHPRemaining() <= 0)
       {
