@@ -62,7 +62,7 @@ namespace MJBScom.Controllers
         if (Player.GetEnemies().Count == 1 && target.GetName() != "Michael Jordan")
         {
             target.Delete();
-            Player michaelJordan = new Player("Michael Jordan", 50, 50, 1, 1, 1, 1);
+            Player michaelJordan = new Player("Michael Jordan", 50, 50);
             michaelJordan.Save();
 
             Dictionary<string, object> mjmodel = new Dictionary<string, object>();
