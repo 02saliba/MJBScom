@@ -16,14 +16,14 @@
 
           if (player.GetX() == x && player.GetY() == y)
           {
-            <div class='tile'><a href="/battle/@Model[0].GetId()/@player.GetId()"><img class="player" src="~/img/enemy1.png"></a></div>
+            <div class='tile'><img class="player" src="~/img/enemy.gif"></div>
             hasPlayer = true;
           }
         }
         if (Model[0].GetX() == x && Model[0].GetY() == y)
         {
           hasPlayer = true;
-          <div class='tile'><img class="player" src="~/img/player1.png"></div>
+          <div class='tile'><img class="player" src="~/img/player.gif"></div>
         }
 
         if (!hasPlayer)
