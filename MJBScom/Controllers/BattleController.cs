@@ -17,7 +17,7 @@ namespace MJBScom.Controllers
       Dictionary<string, object> model = new Dictionary<string, object>();
       model.Add("user", attacker);
       model.Add("enemy", target);
-      
+
       List<string> battleMsg = new List<string>();
       model.Add("msg", battleMsg);
 
@@ -44,15 +44,15 @@ namespace MJBScom.Controllers
       Dictionary<string, object> model = new Dictionary<string, object>();
       model.Add("user", attacker);
       model.Add("enemy", target);
-      
+
       List<string> battleMsg = new List<string>();
       model.Add("msg", battleMsg);
-      
+
       string attackMsg = "";
       if (attackMove == 0) attackMsg = Player.AttackShoot(attacker, target);
       else if (attackMove == 1) attackMsg = Player.AttackTimeOut(attacker);
-      else if (attackMove == 0) attackMsg = Player.AttackShoot(attacker, target);
-      else if (attackMove == 0) attackMsg = Player.AttackShoot(attacker, target);
+      else if (attackMove == 2) attackMsg = Player.AttackDunk(attacker, target);
+      else if (attackMove == 3) attackMsg = Player.AttackZoneDefense(attacker, target);
 
       battleMsg.Add(attackMsg);
 

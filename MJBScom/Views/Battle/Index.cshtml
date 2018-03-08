@@ -48,9 +48,9 @@
                 <br>
                 <a href='/battle/@user.GetId()/attack/@enemy.GetId()/1'><button type="button" class="buttony" name="button">Timeout</button></a>
                 <br>
-                <a href='/battle/@user.GetId()/attack/@enemy.GetId()/2'><button type="button" class="buttony" name="button">other</button></a>
+                <a href='/battle/@user.GetId()/attack/@enemy.GetId()/2'><button type="button" class="buttony" name="button">Dunk</button></a>
                 <br>
-                <a href='/battle/@user.GetId()/attack/@enemy.GetId()/3'><button type="button" class="buttony" name="button">other</button></a>
+                <a href='/battle/@user.GetId()/attack/@enemy.GetId()/3'><button type="button" class="buttony" name="button">Zone Defense</button></a>
     </div>
     <div class="col-md-6"></div>
   </div>
@@ -68,7 +68,7 @@
 
   foreach(string msg in Model["msg"])
   {
-    <script>msgs.push('@msg');</script>
+    <script>msgs.push("@Html.Raw(msg)");</script>
   }
 
   <script>typewriter(msgs, 'msgbox');</script>

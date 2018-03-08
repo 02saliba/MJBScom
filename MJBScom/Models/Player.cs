@@ -360,26 +360,68 @@ namespace MJBScom.Models
             }
           return -1;
         }
-        
+
         public static string AttackShoot(Player attacker, Player target)
         {
           target._hpRemaining -= attacker._strength;
           target.Update();
-          
+
           string attackerName = attacker._allegience ? "You" : attacker._name;
           string targetName = target._allegience ? "you" : target._name;
-          
+
           return attackerName + " did " + attacker._strength + " damage to " + targetName;
         }
-        
+
         public static string AttackTimeOut(Player attacker)
         {
           attacker._hpRemaining += attacker._intelligence;
           attacker.Update();
-          
+
           string attackerName = attacker._allegience ? "You" : attacker._name;
-          
+
           return attackerName + " took a timeout and healed " + attacker._intelligence + " hp ";
         }
+
+        public static string AttackDunk(Player attacker, Player target) {
+          string attackerName = attacker._allegience ? "You" : attacker._name;
+          string targetName = target._allegience ? "you" : target._name;
+
+          Random rnd = new Random();
+          int chance = rnd.Next(1, attacker.GetLuck());
+          if (attacker.GetLuck() > chance) {
+            target._hpRemaining -= attacker._strength + attacker._strength/2;
+            target.Update();
+            return attackerName + " DUNKED on " + targetName + " and caused " + (attacker._strength + attacker._strength/2) + " damage!!!";
+          }
+          else
+          {
+            return attackerName + " tried to dunk on " + targetName + " but tripped - bad luck!!";
+          }
+        }
+        public static string AttackZoneDefense(Player attacker, Player target) {
+          string attackerName = attacker._allegience ? "Your" : attacker._name;
+          string targetName = target._allegience ? "you" : target._name;
+
+          if (target._strength > 1)
+          {
+            Random rnd = new Random();
+            int chance = rnd.Next(1, 11);
+            if (attacker.GetAgility() > chance)
+            {
+              target._strength -= 1;
+              return "DEFENSE!! " + targetName + "'s strength was lowered by 1.";
+            }
+            else
+            {
+              return targetName + " broke through " + attacker._name + "'s defenses and is unaffected.";
+            }
+          }
+          else
+          {
+            return targetName + "'s strength is already low you MONSTER!!!";
+          }
+
+
+          }
     }
 }
