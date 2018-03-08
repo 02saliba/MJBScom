@@ -2,38 +2,66 @@
   Layout = "_Layout";
   var user = Model["user"];
   var enemy = Model["enemy"];
+  var percent = @enemy.GetHPRemaining()* 5;
+  var percent2 = @user.GetHPRemaining()* 5;
 }
-
-<div class="col-md-6">
-  <h3>@user.GetName()</h3>
-  <div>
-    <p>HP: @user.GetHPRemaining() / @user.GetHPTotal()</p>
-    <p>Luck: @user.GetLuck()</p>
-    <p>Agility: @user.GetAgility()</p>
-    <p>Intelligence: @user.GetIntelligence()</p>
-    <p>Strength: @user.GetStrength()</p>
-  </div>
-  <a href='/battle/@user.GetId()/attack/@enemy.GetId()/0'><button type="button" name="button">Shoot</button></a>
-  <a href='/battle/@user.GetId()/attack/@enemy.GetId()/1'><button type="button" name="button">Timeout</button></a>
-  <a href='/battle/@user.GetId()/attack/@enemy.GetId()/2'><button type="button" name="button">Dunk</button></a>
-  <a href='/battle/@user.GetId()/attack/@enemy.GetId()/3'><button type="button" name="button">Zone Defense</button></a>
-</div>
-
-<div class="col-md-6">
-  <h3>@enemy.GetName()</h3>
-  <div>
-    <p>HP: @enemy.GetHPRemaining() / @enemy.GetHPTotal()</p>
-    <p>Luck: @enemy.GetLuck()</p>
-    <p>Agility: @enemy.GetAgility()</p>
-    <p>Intelligence: @enemy.GetIntelligence()</p>
-    <p>Strength: @enemy.GetStrength()</p>
+<div class="well">
+  <div class="row">
+    <div class="col-md-6"></div>
+    <div class="col-md-3"><img src="~/img/enemydetail.png" class="playerImage"></div>
+    <div class="col-md-3">
+      <h3>@enemy.GetName()</h3>
+      <div class="progress">
+        <div class="progress-bar progress-bar-danger" role="progressbar" style="width:@percent%">
+        </div>
+    </div>
+      <div>
+        <p>HP: @enemy.GetHPRemaining() / @enemy.GetHPTotal()</p>
+        <p>Luck: @enemy.GetLuck()</p>
+        <p>Agility: @enemy.GetAgility()</p>
+        <p>Intelligence: @enemy.GetIntelligence()</p>
+        <p>Strength: @enemy.GetStrength()</p>
+      </div>
+    </div>
   </div>
 </div>
 
-
-<div id='msgbox' class="col-md-12">
+<div class="well">
+  <div class="row">
+    <div class="col-md-3">
+      <h3>@user.GetName()</h3>
+      <div class="progress">
+        <div class="progress-bar progress-bar-danger" role="progressbar" style="width:@percent2%">
+        </div>
+    </div>
+      <div>
+        <p>HP: @user.GetHPRemaining() / @user.GetHPTotal()</p>
+        <p>Luck: @user.GetLuck()</p>
+        <p>Agility: @user.GetAgility()</p>
+        <p>Intelligence: @user.GetIntelligence()</p>
+        <p>Strength: @user.GetStrength()</p>
+      </div>
+    </div>
+    <div class="col-md-3"><img src="~/img/playerdetail.png" class="playerImage"></div>
+    <div class="fight-control">
+                <a href='/battle/@user.GetId()/attack/@enemy.GetId()/0'><button type="button" class="buttony" name="button">Shoot</button></a>
+                <br>
+                <a href='/battle/@user.GetId()/attack/@enemy.GetId()/1'><button type="button" class="buttony" name="button">Timeout</button></a>
+                <br>
+                <a href='/battle/@user.GetId()/attack/@enemy.GetId()/2'><button type="button" class="buttony" name="button">Dunk</button></a>
+                <br>
+                <a href='/battle/@user.GetId()/attack/@enemy.GetId()/3'><button type="button" class="buttony" name="button">Zone Defense</button></a>
+    </div>
+    <div class="col-md-6"></div>
+  </div>
 </div>
-
+<br>
+<div class="well">
+  <div class="row">
+    <div id="msgbox" class="col-md-12">
+    </div>
+  </div>
+</div>
 
 @{
   <script>var msgs = [];</script>
