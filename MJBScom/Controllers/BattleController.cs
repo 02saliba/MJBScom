@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using MJBScom.Models;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Routing;
 
 namespace MJBScom.Controllers
 {
@@ -58,12 +59,23 @@ namespace MJBScom.Controllers
 
       if (target.GetHPRemaining() <= 0)
       {
-        target.Delete();
-        if (Player.GetAll().Count == 1)
+        if (Player.GetEnemies().Count == 1 && target.GetName() != "Michael Jordan")
         {
-          Player.DeleteAll();
-          return View("Win");
+            target.Delete();
+            Player michaelJordan = new Player("Michael Jordan", 50, 50);
+            michaelJordan.Save();
+
+            Dictionary<string, object> mjmodel = new Dictionary<string, object>();
+            mjmodel.Add("user", attacker);
+            mjmodel.Add("enemy", michaelJordan);
+            return View("Final", mjmodel);
         }
+        else if (Player.GetEnemies().Count == 1 && target.GetName() == "Michael Jordan")
+        {
+            target.Delete();
+            return View("Win");
+        }
+        target.Delete();
         return RedirectToAction("Index", "Court");
       }
 
@@ -72,8 +84,10 @@ namespace MJBScom.Controllers
       if (attacker.GetHPRemaining() <= 0)
       {
         Player.DeleteAll();
-        return RedirectToAction("Index", "Home");
+        return View("Lose");
       }
+
+
 
       return View("Index", model);
     }

@@ -42,13 +42,13 @@ namespace MJBScom.Controllers
         newPlayer.SetY(6);
         newPlayer.Save();
       }
-      Player enemy1 = new Player("Joe", 20, 20);
+      Player enemy1 = new Player("Joe", 20, 20, 1, 1, 1, 1);
       enemy1.SetX(6);
       enemy1.SetY(2);
-      Player enemy2 = new Player("Frank", 20, 20);
+      Player enemy2 = new Player("Frank", 20, 20, 1, 1, 1, 1);
       enemy2.SetX(12);
       enemy2.SetY(5);
-      Player enemy3 = new Player("Cam", 20, 20);
+      Player enemy3 = new Player("Cam", 20, 20, 1, 1, 1, 1);
       enemy3.SetX(18);
       enemy3.SetY(7);
 
