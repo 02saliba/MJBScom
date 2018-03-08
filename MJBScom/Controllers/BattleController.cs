@@ -32,6 +32,7 @@ namespace MJBScom.Controllers
       if (attacker.GetHPRemaining() <= 0)
       {
         Player.DeleteAll();
+        BattleText.DeleteAll();
         return RedirectToAction("Index", "Home");;
       }
       return View("Index", model);

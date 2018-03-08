@@ -27,9 +27,9 @@ namespace MJBScom.Controllers
 
       foreach(Player enemy in Player.GetEnemies())
       {
-        // enemy.Move(r.Next(4) + 37);
-        // enemy.Move(r.Next(4) + 37);
-        // enemy.Update();
+        enemy.Move(r.Next(4) + 37);
+        enemy.Move(r.Next(4) + 37);
+        enemy.Update();
       }
 
       int enemyInRange = activePlayer.fightDetect();
