@@ -1,5 +1,5 @@
 # Michael Jordan Basketball Simulator
-<img align="center" title="MJBS" src="./MJBScom/MJBScom/wwwroot/img/titlepage.gif">
+<img align="center" src="titlepage.gif">
 
 Michael Jordan Basketball Simulator is a new iconic game from CKJN Enterprises that shares the story of the future of the world, the future of basketball, and the future of humanity.
 
