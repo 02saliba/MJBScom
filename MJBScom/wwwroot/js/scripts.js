@@ -28,7 +28,7 @@ function typewriter(sentences) {
   for (var i = 0; i < sentences.length; i++)
   {
     setTimeout(printSentence, time, sentences[i]);
-    var time = sentences[i].length * charSpeed + sentenceSpeed;
+    var time = time + sentences[i].length * charSpeed + sentenceSpeed;
   }
 }
 
