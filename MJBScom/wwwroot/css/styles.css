@@ -70,10 +70,6 @@ h1 {
   background: none;
 }
 
-.white {
-  color: white
-}
-
 
 .buttony{
   background-image: url("../img/fightbg.gif");
@@ -132,4 +128,8 @@ a:hover {
 
 .progress-bar-danger {
   background-color: red;
+}
+
+#white {
+  color: white;
 }
